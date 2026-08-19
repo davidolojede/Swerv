@@ -1,0 +1,22 @@
+:root {
+    --primary: #34452D;
+    --secondary: #6F726A;
+    --background: #A1A593;
+    --surface: #ebebe5;
+    --text: #11120F;
+    --text-muted: #454740;
+    --border: #D8D6;
+    --contrast: #c57a5a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Manrope', sans-serif;
+}
