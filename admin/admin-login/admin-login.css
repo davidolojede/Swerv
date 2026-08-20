@@ -6,7 +6,7 @@
     --text: #11120F;
     --text-muted: #454740;
     --border: #D8D6;
-    --contrast: #c57a5a;
+    --contrast: #34452D;
 }
 
 * {
@@ -188,7 +188,7 @@ body {
     font-size: 1.25rem;
     cursor: pointer;
     /* background-color: var(--contrast); */
-    background: radial-gradient(circle at bottom right, #e9a588d5 -0%, transparent 50%),
+    background: radial-gradient(circle at bottom right, #79926fc2 -0%, transparent 50%),
         var(--contrast);
     color: white;
     transition: 0.4s ease-out;

@@ -23,29 +23,29 @@
             </div>
 
             <ul class="navlist-container">
-                <li>
+                <li id="goto-dashboard">
                     <i class="bi bi-grid nav-icon"></i>
                     Dashboard
                 </li>
 
-                <li>
+                <li id="goto-products">
                     <i class="bi bi-handbag nav-icon"></i>
                     Products
                 </li>
 
-                <li>
+                <li id="goto-orders">
                     <i class="bi bi-box nav-icon"></i>
                     Orders
                 </li>
 
-                <li>
+                <li goto-customers>
                     <i class="bi bi-person nav-icon"></i>
                     Customers
                 </li>
 
                 <div id="nav-line"></div>
 
-                <li>
+                <li id="logout-btn">
                     <i class="bi bi-box-arrow-right nav-icon"></i>
                     Logout
                 </li>
@@ -54,7 +54,7 @@
 
 
         <!-- DASHBOARD -->
-        <div class="dashboard">
+        <div id="dashboard">
             <header>
                 <div class="left-side">
                     <h2>Welcome back, Admin</h2>
@@ -93,7 +93,7 @@
 
                     <div class="stat-card">
                         <div class="card-title">
-                            <i class="bi bi-currency-dollar stat-icon"></i>
+                            <i class="bi bi-box stat-icon"></i>
                             <p class="card-name">Orders</p>
                         </div>
                         <h2 class="card-key">384</h2>
@@ -105,7 +105,7 @@
 
                     <div class="stat-card">
                         <div class="card-title">
-                            <i class="bi bi-currency-dollar stat-icon"></i>
+                            <i class="bi bi-people stat-icon"></i>
                             <p class="card-name">Customers</p>
                         </div>
                         <h2 class="card-key">1,284</h2>
@@ -117,7 +117,7 @@
 
                     <div class="stat-card">
                         <div class="card-title">
-                            <i class="bi bi-currency-dollar stat-icon"></i>
+                            <i class="bi bi-handbag stat-icon"></i>
                             <p class="card-name">Products</p>
                         </div>
                         <h2 class="card-key">126</h2>
@@ -216,16 +216,14 @@
 
                     <div class="action-cards">
                         <div class="action">
-                            <i class="bi bi-plus-lg action-icon"></i>
+                            <i class="bi bi-plus-lg action-icon plus-icon"></i>
 
                             <div class="action-content">
                                 <p>Add Product</p>
                                 <span>Add new sneaker</span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="action-cards">
                         <div class="action">
                             <i class="bi bi-box action-icon"></i>
 
@@ -234,9 +232,7 @@
                                 <span>Manage orders</span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="action-cards">
                         <div class="action">
                             <i class="bi bi-percent action-icon"></i>
 
@@ -245,9 +241,7 @@
                                 <span>Setup a discount</span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="action-cards">
                         <div class="action">
                             <i class="bi bi-people action-icon"></i>
                             <div class="action-content">
@@ -259,6 +253,181 @@
                 </div>
             </section>
         </div>
+
+
+
+
+
+
+        <!-- PRODUCT SECTION -->
+        <div id="product-section">
+            <header>
+                <div class="left-side">
+                    <h2>Products</h2>
+                    <p>Manage and organize all products in your store.</p>
+                </div>
+
+                <div class="right-side">
+                    <i class="bi bi-search head-icon"></i>
+                    <i class="bi bi-bell head-icon"></i>
+
+                    <div class="profile">
+                        <img id="profile-img" src="/assets/admin-profile.png" alt="">
+                        <div class="name">
+                            <h4>Admin</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+            <!-- PRODUCT SECTION/OVERVIEW -->
+            <section class="product-overview">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="card-title">
+                            <i class="bi bi-box product-stat-icon"></i>
+                            <p class="card-name">Total Products</p>
+                        </div>
+                        <h2 class="card-number">126</h2>
+
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="card-title">
+                            <i class="bi bi-tag product-stat-icon"></i>
+                            <p class="card-name">Active Products</p>
+                        </div>
+                        <h2 class="card-number">112</h2>
+
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="card-title">
+                            <i class="i bi-eye-slash product-stat-icon"></i>
+                            <p class="card-name">Inactive Products</p>
+                        </div>
+                        <h2 class="card-number">12</h2>
+
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="card-title">
+                            <i class="bi bi-archive product-stat-icon"></i>
+                            <p class="card-name">Out of Stock</p>
+                        </div>
+                        <h2 class="card-number">0</h2>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- PRODUCTS LIST -->
+            <div class="products">
+                <div class="card-header">
+                    <div class="query-container">
+                        <div id="search-container">
+                            <i class="bi bi-search"></i>
+                            <input type="text" id="search-query" placeholder="Search products...">
+                        </div>
+
+                        <div id="status-container">
+                            <!-- <i class="bi bi-chevron-down"></i> -->
+                            <form action="">
+                                <select name="" id="product-status">
+                                    <option selected value="Null">All Status</option>
+                                    <option selected value="In Stock">In Stock</option>
+                                    <option selected value="Low Stock">Low Stock</option>
+                                    <option selected value="Out of Stock">Out of Stocks</option>
+
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+
+                    <button id="add-product-btn">
+                        <i class="bi bi-plus-lg"></i>
+                        Add Product
+                    </button>
+                </div>
+
+                <div class="column-title">
+                    <p>PRODUCT</p>
+                    <p>CATEGORY</p>
+                    <p>PRICE</p>
+                    <p>ACTIONS</p>
+                </div>
+
+                <div id="product-line"></div>
+
+                <ul class="product-list">
+                    <li class="product">
+                        <img src="/assets/products/shoe-1.webp" alt="">
+
+                        <div class="product-info">
+                            <p class="product-name">Air Jordan 1 Retro</p>
+                            <span class="size">Size: 42</span>
+                        </div>
+
+                        <span class="product-category">Nike</span>
+                        <span class="product-price">180,000</span>
+                        <span class="stock">12</span>
+                        <span class="actions">
+                            <i class="bi bi-eye"></i>
+                            <i class="bi bi-pencil"></i>
+                        </span>
+                    </li>
+
+                    <!-- <li class="product">
+                            <img src="/assets/products/shoe-1.webp" alt="">
+
+                            <div class="product-info">
+                                <p class="product-name">Nike Dunk Low</p>
+                                <span class="size">Size: 43</span>
+                            </div>
+
+                            <h3 class="sales-amount">91 sales</h3>
+                        </li>
+
+                        <li class="product">
+                            <img src="/assets/products/shoe-1.webp" alt="">
+
+                            <div class="product-info">
+                                <p class="product-name">New Balance 550</p>
+                                <span class="size">Size: 42</span>
+                            </div>
+
+                            <h3 class="sales-amount">74 sales</h3>
+                        </li>
+
+                        <li class="product">
+                            <img src="/assets/products/shoe-1.webp" alt="">
+
+                            <div class="product-info">
+                                <p class="product-name">Air Max 95</p>
+                                <span class="size">Size: 41</span>
+                            </div>
+
+                            <h3 class="sales-amount">69 sales</h3>
+                        </li>
+
+                        <li class="product">
+                            <img src="/assets/products/shoe-1.webp" alt="">
+
+                            <div class="product-info">
+                                <p class="product-name">Yeezy Boost 350</p>
+                                <span class="size">Size: 40</span>
+                            </div>
+
+                            <h3 class="sales-amount">64 sales</h3>
+                        </li> -->
+                </ul>
+            </div>
+        </div>
+
+    </div>
     </div>
 </body>
 <script src="/admin/admin-dashboard/dashboard.js"></script>

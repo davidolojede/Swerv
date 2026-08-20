@@ -36,14 +36,14 @@ body {
 .sidebar {
     background-color: var(--primary);
     color: var(--surface);
-    padding: 30px 20px;
+    padding: clamp(8px, 1vw, 10px) clamp(14px, 1.8vw, 20px);
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: clamp(20px, 2.5vw, 35px);
 }
 
 #logo {
-    font-size: 40px;
+    font-size: clamp(28px, 3vw, 40px);
     font-family: var(--poppins);
     letter-spacing: -1px;
     text-align: center
@@ -53,22 +53,27 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     list-style: none;
-    gap: 20px;
+    gap: clamp(12px, 1.5vw, 20px);
 }
 
 .navlist-container li {
-    font-size: 19px;
+    font-size: clamp(15px, 1.3vw, 19px);
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
+    gap: clamp(12px, 1.5vw, 20px);
+    padding: clamp(12px, 1.5vw, 20px);
     border-radius: 12px;
     transition: 0.3s ease-out;
+    cursor: pointer;
 }
 
 .navlist-container li:hover {
     background-color: var(--secondary);
+}
+
+#logout-btn:hover {
+    background-color: rgba(235, 44, 44, 0.247);
 }
 
 #nav-line {
@@ -76,15 +81,17 @@ body {
     width: 90%;
     height: 1px;
     background-color: var(--secondary);
-    margin: 20px 0;
+    margin: clamp(12px, 1.5vw, 20px) 0;
 }
 
 
 /* DASHBOARD */
-.dashboard {
-    padding: 30px 40px;
+#dashboard {
     background-color: var(--surface);
     width: 100%;
+    height: 100vh;
+    padding: clamp(8px, 1vw, 10px) clamp(20px, 3vw, 40px);
+    display: none;
 }
 
 header {
@@ -94,23 +101,23 @@ header {
 }
 
 .left-side h2 {
-    font-size: 25px;
+    font-size: clamp(19px, 2vw, 25px);
     font-weight: 800;
 }
 
 .left-side p {
-    font-size: 15px;
+    font-size: clamp(13px, 1.1vw, 15px);
 }
 
 .right-side {
     display: flex;
-    gap: 10px;
+    gap: clamp(8px, 1vw, 10px);
     align-items: center;
 }
 
 .head-icon {
-    font-size: 19px;
-    padding: 7px 10px;
+    font-size: clamp(16px, 1.4vw, 19px);
+    padding: clamp(5px, 0.6vw, 7px) clamp(8px, 0.9vw, 10px);
     border-radius: 50%;
     transition: 0.3s ease-out;
 }
@@ -121,36 +128,36 @@ header {
 
 .profile {
     display: flex;
-    gap: 10px;
+    gap: clamp(8px, 1vw, 10px);
     align-items: center;
 }
 
 #profile-img {
-    width: 43px;
+    width: clamp(36px, 3.2vw, 43px);
     height: auto;
     border-radius: 50%;
 }
 
 .name {
-    font-size: 18px
+    font-size: clamp(15px, 1.4vw, 18px)
 }
 
 .name p {
-    font-size: 15px;
+    font-size: clamp(13px, 1.1vw, 15px);
 }
 
 
 /* OVERVIEW */
 .overview {
     display: grid;
-    gap: 20px;
-    padding: 30px 0;
+    gap: clamp(14px, 1.5vw, 20px);
+    padding: clamp(20px, 2.2vw, 30px) 0 0 0;
 }
 
 .stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 40px;
+    gap: clamp(20px, 3vw, 40px);
 }
 
 .stat-card {
@@ -158,39 +165,39 @@ header {
     background:
         linear-gradient(180deg, var(--light-surface) 0%, transparent 50%) var(--surface);
     border-radius: 15px;
-    padding: 30px;
+    padding: clamp(10px, 1.2vw, 15px);
     display: grid;
-    gap: 7px;
+    gap: clamp(5px, 0.6vw, 7px);
 }
 
 .card-title {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: clamp(12px, 1.5vw, 20px);
 }
 
 .stat-icon {
-    font-size: 35px;
-    padding: 7px 14px;
+    font-size: clamp(22px, 2.2vw, 28px);
+    padding: clamp(5px, 0.6vw, 7px) clamp(10px, 1.1vw, 14px);
     border-radius: 50%;
     background-color: var(--icon-bg);
 }
 
 .card-name {
-    font-size: 20px;
+    font-size: clamp(16px, 1.6vw, 20px);
     font-weight: 600;
 }
 
 .card-key {
-    font-size: 40px;
+    font-size: clamp(30px, 3.2vw, 40px);
     font-weight: 700;
 }
 
 .offset-container {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 15px;
+    gap: clamp(8px, 1vw, 10px);
+    font-size: clamp(13px, 1.1vw, 15px);
 }
 
 .offset {
@@ -207,7 +214,7 @@ header {
 .analytics {
     display: grid;
     grid-template-columns: 3fr 2fr;
-    gap: 20px;
+    gap: clamp(14px, 1.5vw, 20px);
 }
 
 .sales-graph {
@@ -215,19 +222,19 @@ header {
     background:
         linear-gradient(180deg, var(--light-surface) 0%, transparent 50%) var(--surface);
     border-radius: 15px;
-    padding: 30px;
+    padding: clamp(14px, 1.5vw, 20px);
     display: grid;
-    gap: 30px;
+    gap: 0px;
     /* height: fit-content; */
 }
 
 .subhead {
-    font-size: 18px;
+    font-size: clamp(15px, 1.4vw, 18px);
     font-weight: 700;
 }
 
 #total-revenue {
-    font-size: 30px;
+    font-size: clamp(22px, 2.4vw, 30px);
     font-weight: 700;
 }
 
@@ -242,22 +249,22 @@ header {
     background:
         linear-gradient(180deg, var(--light-surface) 0%, transparent 50%) var(--surface);
     border-radius: 15px;
-    padding: 30px;
+    padding: clamp(14px, 1.5vw, 20px);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: clamp(8px, 1vw, 10px);
     /* height: fit-content; */
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: clamp(8px, 1vw, 10px);
 }
 
 #view-all-btn {
     color: red;
-    font-size: 15px;
+    font-size: clamp(13px, 1.1vw, 15px);
 }
 
 #product-line {
@@ -265,13 +272,13 @@ header {
     width: 100%;
     height: 1px;
     background-color: var(--icon-bg);
-    margin: 7px 0;
+    margin: clamp(5px, 0.6vw, 7px) 0;
 }
 
 .top-product-list {
     list-style: none;
     display: grid;
-    gap: 20px;
+    gap: clamp(14px, 1.5vw, 20px);
 }
 
 .product {
@@ -281,8 +288,8 @@ header {
 }
 
 .product img {
-    width: 80px;
-    height: 60px;
+    width: clamp(60px, 6vw, 80px);
+    height: clamp(45px, 4.5vw, 60px);
     border-radius: 10px;
 }
 
@@ -291,18 +298,142 @@ header {
 }
 
 .product-name {
-    font-size: 17px;
+    font-size: clamp(14px, 1.3vw, 17px);
     font-weight: 600;
 }
 
 .size {
-    font-size: 15px;
+    font-size: clamp(13px, 1.1vw, 15px);
 }
 
 .sales-amount {
-    font-size: 20px;
+    font-size: clamp(16px, 1.6vw, 20px);
     font-weight: 600;
 }
 
 
 /* QUICK ACTIONS */
+.quick-actions {
+    border: 1px solid var(--icon-bg);
+    background:
+        linear-gradient(180deg, var(--light-surface) 0%, transparent 50%) var(--surface);
+    border-radius: 15px;
+    padding: clamp(18px, 2.2vw, 30px);
+}
+
+.action-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: clamp(16px, 2.2vw, 30px);
+    margin-top: clamp(8px, 1vw, 10px)
+}
+
+.action {
+    padding: clamp(8px, 1vw, 10px) clamp(14px, 1.8vw, 20px);
+    border: 1px solid var(--icon-bg);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.3vw, 15px);
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.055);
+    transition: 0.3s ease-out;
+}
+
+.action:hover {
+    background-color: rgba(128, 128, 128, 0.137);
+}
+
+.action-icon {
+    font-size: clamp(24px, 2.4vw, 30px);
+    padding: clamp(8px, 1vw, 10px) clamp(12px, 1.4vw, 15px);
+    border-radius: 15px;
+    background-color: var(--icon-bg)
+}
+
+.plus-icon {
+    background-color: var(--background);
+}
+
+.action-content p {
+    font-size: clamp(14px, 1.3vw, 17px);
+    font-weight: 700;
+}
+
+.action-normal span {
+    font-size: clamp(13px, 1.1vw, 15px);
+}
+
+
+
+
+
+
+
+
+/* PRODUCT SECTION */
+#product-section {
+    background-color: var(--surface);
+    width: 100%;
+    height: 100vh;
+    padding: clamp(8px, 1vw, 10px) clamp(20px, 3vw, 40px);
+    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.product-overview .card-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.product-stat-icon {
+     font-size: clamp(22px, 2.2vw, 28px);
+    padding: clamp(5px, 0.6vw, 7px) clamp(10px, 1.1vw, 14px);
+    border-radius: 50%;
+    background-color: var(--icon-bg);
+}
+
+.card-number {
+    font-size: clamp(30px, 3.2vw, 40px);
+    font-weight: 700;
+    justify-self: center;
+}
+
+.products {
+    border: 1px solid var(--icon-bg);
+    background:
+        linear-gradient(180deg, var(--light-surface) 0%, transparent 50%) var(--surface);
+    border-radius: 15px;
+    padding: clamp(14px, 1.5vw, 20px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 10px);
+}
+
+.products .card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.products .query-container {
+    display:flex;
+    gap: 50px;
+    width: 40%;
+}
+
+#search-container {
+    padding: 10px;
+    border: 1px solid var(--icon-bg);
+    border-radius: 7px;
+    flex: 1;
+    width: 100%;
+}
+
+#search-query {
+    background: transparent;
+    border:none;
+    outline:none;
+}
+

@@ -1,0 +1,5 @@
+const dashboardBtn = document.getElementById("goto-dashboard")
+const productsBtn = document.getElementById("goto-products")
+const ordersBtn = document.getElementById("goto-orders")
+const customersBtn = document.getElementById("goto-customers")
+const logoutBtn = document.getElementById("logout-btn")
