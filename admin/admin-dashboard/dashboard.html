@@ -19,8 +19,9 @@
     <div class="page-container">
         <div class="sidebar">
             <div class="header">
-                <h1>Swerv</h1>
+                <h1 id="logo">Swerv</h1>
             </div>
+
             <ul class="navlist-container">
                 <li>
                     <i class="bi bi-grid nav-icon"></i>
@@ -41,6 +42,8 @@
                     <i class="bi bi-person nav-icon"></i>
                     Customers
                 </li>
+
+                <div id="nav-line"></div>
 
                 <li>
                     <i class="bi bi-box-arrow-right nav-icon"></i>
@@ -78,7 +81,7 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="card-title">
-                            <i class="bi bi-currency-dollar"></i>
+                            <i class="bi bi-currency-dollar stat-icon"></i>
                             <p class="card-name">Total Sales</p>
                         </div>
                         <h2 class="card-key">₦4.82M</h2>
@@ -90,7 +93,7 @@
 
                     <div class="stat-card">
                         <div class="card-title">
-                            <i class="bi bi-currency-dollar"></i>
+                            <i class="bi bi-currency-dollar stat-icon"></i>
                             <p class="card-name">Orders</p>
                         </div>
                         <h2 class="card-key">384</h2>
@@ -102,19 +105,19 @@
 
                     <div class="stat-card">
                         <div class="card-title">
-                            <i class="bi bi-currency-dollar"></i>
+                            <i class="bi bi-currency-dollar stat-icon"></i>
                             <p class="card-name">Customers</p>
                         </div>
                         <h2 class="card-key">1,284</h2>
                         <div class="offset-container">
-                            <span class="offset"><i class="bi bi-arrow-up">1.5%%</i></span>
+                            <span class="offset"><i class="bi bi-arrow-up">1.5%</i></span>
                             <span>vs last month</span>
                         </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="card-title">
-                            <i class="bi bi-currency-dollar"></i>
+                            <i class="bi bi-currency-dollar stat-icon"></i>
                             <p class="card-name">Products</p>
                         </div>
                         <h2 class="card-key">126</h2>
@@ -131,81 +134,73 @@
                     <div class="sales-graph">
                         <h4 class="subhead">Sales Overview</h4>
                         <div class="sales">
-                            <h3>₦4.82M</h3>
-                            <p>Total sales this year
-                                <span><i class="bi bi-arrow-up"> 12.5%</i></span>
+                            <h3 id="total-revenue">₦4.82M</h3>
+                            <p class="offset-container">Total sales this year
+                                <span class="offset"><i class="bi bi-arrow-up"> 12.5%</i></span>
                             </p>
                         </div>
-                        <img src="/assets/salesgraph.png" alt="">
+                        <img id="graph" src="/assets/salesgraph.png" alt="">
                     </div>
+
                     <div class="top-products">
-                        <card-header>
+                        <div class="card-header">
                             <h4 class="subhead">Top Products</h4>
                             <p id="view-all-btn">View all</p>
-                        </card-header>
+                        </div>
+
+                        <div id="product-line"></div>
 
                         <ul class="top-product-list">
                             <li class="product">
                                 <img src="/assets/products/shoe-1.webp" alt="">
 
                                 <div class="product-info">
-                                    <p class="product-name"></p>
+                                    <p class="product-name">Air Jordan 1 Retro</p>
                                     <span class="size">Size: 42</span>
                                 </div>
 
-                                <h3 class="sales-amount">64 sales</h3>
+                                <h3 class="sales-amount">110 sales</h3>
                             </li>
 
                             <li class="product">
                                 <img src="/assets/products/shoe-1.webp" alt="">
 
                                 <div class="product-info">
-                                    <p class="product-name"></p>
-                                    <span class="size">Size: 42</span>
+                                    <p class="product-name">Nike Dunk Low</p>
+                                    <span class="size">Size: 43</span>
                                 </div>
 
-                                <h3 class="sales-amount">64 sales</h3>
+                                <h3 class="sales-amount">91 sales</h3>
                             </li>
 
                             <li class="product">
                                 <img src="/assets/products/shoe-1.webp" alt="">
 
                                 <div class="product-info">
-                                    <p class="product-name"></p>
+                                    <p class="product-name">New Balance 550</p>
                                     <span class="size">Size: 42</span>
                                 </div>
 
-                                <h3 class="sales-amount">64 sales</h3>
+                                <h3 class="sales-amount">74 sales</h3>
                             </li>
 
                             <li class="product">
                                 <img src="/assets/products/shoe-1.webp" alt="">
 
                                 <div class="product-info">
-                                    <p class="product-name"></p>
-                                    <span class="size">Size: 42</span>
+                                    <p class="product-name">Air Max 95</p>
+                                    <span class="size">Size: 41</span>
                                 </div>
 
-                                <h3 class="sales-amount">64 sales</h3>
+                                <h3 class="sales-amount">69 sales</h3>
                             </li>
 
                             <li class="product">
                                 <img src="/assets/products/shoe-1.webp" alt="">
 
                                 <div class="product-info">
-                                    <p class="product-name"></p>
-                                    <span class="size">Size: 42</span>
-                                </div>
-
-                                <h3 class="sales-amount">64 sales</h3>
-                            </li>
-
-                            <li class="product">
-                                <img src="/assets/products/shoe-1.webp" alt="">
-
-                                <div class="product-info">
-                                    <p class="product-name"></p>
-                                    <span class="size">Size: 42</span>
+                                    <p class="product-name">Yeezy Boost 350</p>
+                                    <span class="size">Size: 40</span>
                                 </div>
 
                                 <h3 class="sales-amount">64 sales</h3>
