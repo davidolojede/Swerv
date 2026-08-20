@@ -23,12 +23,12 @@
             </div>
 
             <ul class="navlist-container">
-                <li id="goto-dashboard">
+                <li onclick="goToDashboard()" id="goto-dashboard">
                     <i class="bi bi-grid nav-icon"></i>
                     Dashboard
                 </li>
 
-                <li id="goto-products">
+                <li onclick="goToProduct()" id="goto-products">
                     <i class="bi bi-handbag nav-icon"></i>
                     Products
                 </li>
@@ -45,7 +45,7 @@
 
                 <div id="nav-line"></div>
 
-                <li id="logout-btn">
+                <li onclick="logOut()" id="logout-btn">
                     <i class="bi bi-box-arrow-right nav-icon"></i>
                     Logout
                 </li>
@@ -54,7 +54,7 @@
 
 
         <!-- DASHBOARD -->
-        <div id="dashboard">
+        <div id="dashboard" class="grid-display">
             <header>
                 <div class="left-side">
                     <h2>Welcome back, Admin</h2>
@@ -215,7 +215,7 @@
                     <h4 class="subhead">Quick Actions</h4>
 
                     <div class="action-cards">
-                        <div class="action">
+                        <div id="add-customer-btn" class="action">
                             <i class="bi bi-plus-lg action-icon plus-icon"></i>
 
                             <div class="action-content">
@@ -260,7 +260,7 @@
 
 
         <!-- PRODUCT SECTION -->
-        <div id="product-section">
+        <div id="product-section" class="no-display">
             <header>
                 <div class="left-side">
                     <h2>Products</h2>
@@ -337,11 +337,10 @@
                             <!-- <i class="bi bi-chevron-down"></i> -->
                             <form action="">
                                 <select name="" id="product-status">
-                                    <option selected value="Null">All Status</option>
-                                    <option selected value="In Stock">In Stock</option>
-                                    <option selected value="Low Stock">Low Stock</option>
-                                    <option selected value="Out of Stock">Out of Stocks</option>
-
+                                    <option selected value="">All Status</option>
+                                    <option value="In Stock">In Stock</option>
+                                    <option value="Low Stock">Low Stock</option>
+                                    <option value="Out of Stock">Out of Stocks</option>
                                 </select>
                             </form>
                         </div>
@@ -354,25 +353,45 @@
                 </div>
 
                 <div class="column-title">
-                    <p>PRODUCT</p>
+                    <p class="product-title">PRODUCT</p>
+                    <p></p>
+                    <p>ID</p>
                     <p>CATEGORY</p>
                     <p>PRICE</p>
+                    <p>STOCK</p>
                     <p>ACTIONS</p>
                 </div>
 
                 <div id="product-line"></div>
 
                 <ul class="product-list">
-                    <li class="product">
-                        <img src="/assets/products/shoe-1.webp" alt="">
+                    <li class="product-item">
+                        <img class="product-image" src="/assets/products/shoe-1.webp" alt="">
 
                         <div class="product-info">
                             <p class="product-name">Air Jordan 1 Retro</p>
-                            <span class="size">Size: 42</span>
+                            <p class="product-size">Size: 42</p>
                         </div>
-
+                        <span class="product-id">SKU-3493843</span>
                         <span class="product-category">Nike</span>
-                        <span class="product-price">180,000</span>
+                        <span class="product-price">₦180,000</span>
+                        <span class="stock">12</span>
+                        <span class="actions">
+                            <i class="bi bi-eye"></i>
+                            <i class="bi bi-pencil"></i>
+                        </span>
+                    </li>
+
+                    <li class="product-item">
+                        <img class="product-image" src="/assets/products/shoe-1.webp" alt="">
+
+                        <div class="product-info">
+                            <p class="product-name">Air Jordan 1 Retro</p>
+                            <p class="product-size">Size: 42</p>
+                        </div>
+                        <span class="product-id">SKU-3493843</span>
+                        <span class="product-category">Nike</span>
+                        <span class="product-price">₦180,000</span>
                         <span class="stock">12</span>
                         <span class="actions">
                             <i class="bi bi-eye"></i>
@@ -427,6 +446,55 @@
             </div>
         </div>
 
+
+        <section class="no-display" id="modal-section">
+            <div class="modal-header">
+                <h2>Add Product</h2>
+                <p>Fill in the product details below</p>
+            </div>
+
+            <div class="modal-form">
+                <div class="input-container">
+                    <label for="name-input">Product Name</label>
+                    <input type="text" id="name-input" placeholder="Enter product name">
+                </div>
+
+                <div class="input-container">
+                    <label for="id-input">Product ID</label>
+                    <input type="text" id="id-input" placeholder="Enter product ID">
+                </div>
+
+                <div class="input-container">
+                    <label for="category-input">Category</label>
+                    <input type="text" id="category-input" placeholder="Enter category">
+                </div>
+
+                <div class="input-container">
+                    <label for="size-input">Size</label>
+                    <input type="text" id="size-input" placeholder="Enter size">
+                </div>
+
+                <div class="span-two">
+                    <div class="input-container">
+                        <label for="price-input">Price</label>
+                        <div class="price-container">
+                            <span>₦</span>
+                            <input type="number" id="price-input" placeholder="Enter price">
+                        </div>
+                    </div>
+
+                    <div class="input-container image-input">
+                        <label for="image-input">Product Image</label>
+                        <input id="image-input" type="file" placeholder="Choose Image">
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button id="cancel-input">Cancel</button>
+                        <button id="add-input">Add Product</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     </div>
 </body>
