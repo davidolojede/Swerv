@@ -365,7 +365,7 @@
                 <div id="product-line"></div>
 
                 <ul class="product-list">
-                    <li class="product-item">
+                    <!-- <li class="product-item">
                         <img class="product-image" src="/assets/products/shoe-1.webp" alt="">
 
                         <div class="product-info">
@@ -397,7 +397,7 @@
                             <i class="bi bi-eye"></i>
                             <i class="bi bi-pencil"></i>
                         </span>
-                    </li>
+                    </li> -->
 
                     <!-- <li class="product">
                             <img src="/assets/products/shoe-1.webp" alt="">
@@ -456,41 +456,47 @@
             <div class="modal-form">
                 <div class="input-container">
                     <label for="name-input">Product Name</label>
-                    <input type="text" id="name-input" placeholder="Enter product name">
+                    <input class="modal-input" type="text" id="name-input" placeholder="Enter product name">
                 </div>
 
                 <div class="input-container">
                     <label for="id-input">Product ID</label>
-                    <input type="text" id="id-input" placeholder="Enter product ID">
+                    <input class="modal-input" type="number" id="id-input" placeholder="Enter product ID" max="500"
+                        min="100">
                 </div>
 
                 <div class="input-container">
                     <label for="category-input">Category</label>
-                    <input type="text" id="category-input" placeholder="Enter category">
+                    <input class="modal-input" type="text" id="category-input" placeholder="Enter category">
                 </div>
 
                 <div class="input-container">
                     <label for="size-input">Size</label>
-                    <input type="text" id="size-input" placeholder="Enter size">
+                    <input class="modal-input" type="number" id="size-input" placeholder="Enter size" max="40" min="25">
+                </div>
+
+                <div class="input-container">
+                    <label for="price-input">Price</label>
+                    <div class="price-container">
+                        <span>₦</span>
+                        <input class="modal-input" type="number" id="price-input" placeholder="Enter price">
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <label for="quantity-input">Quantity</label>
+                    <input class="modal-input" type="number" id="quantity-input" placeholder="Enter quantity">
                 </div>
 
                 <div class="span-two">
-                    <div class="input-container">
-                        <label for="price-input">Price</label>
-                        <div class="price-container">
-                            <span>₦</span>
-                            <input type="number" id="price-input" placeholder="Enter price">
-                        </div>
-                    </div>
-
                     <div class="input-container image-input">
                         <label for="image-input">Product Image</label>
-                        <input id="image-input" type="file" placeholder="Choose Image">
+                        <input class="modal-input" id="image-input" type="file" placeholder="Choose Image">
                     </div>
 
                     <div class="modal-buttons">
-                        <button id="cancel-input">Cancel</button>
-                        <button id="add-input">Add Product</button>
+                        <button onclick="cancelModal()" id="cancel-input">Cancel</button>
+                        <button onclick="addProductKey()" id="add-input">Add Product</button>
                     </div>
                 </div>
             </div>
