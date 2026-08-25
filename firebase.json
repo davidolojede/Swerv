@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "providers": {
+      "emailPassword": true,
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Swerv",
+        "supportEmail": "olojededavid08@gmail.com"
+      }
+    }
+  }
+}

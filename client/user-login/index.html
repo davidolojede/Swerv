@@ -18,6 +18,7 @@
     <div class="page-bg">
         <section>
             <div class="header">
+                <p id="error-box"></p>
                 <h2 id="logo">Swerv</h2>
                 <h3 id="login-text">Already have an account? <span onclick="getLoginForm()" id="nav-login-btn">Log
                         in</span></h3>
@@ -36,7 +37,7 @@
                     <div class="signup-form">
                         <div class="name-container input-container">
                             <i class="bi bi-person form-icon"></i>
-                            <input type="text" name="" id="name-input" placeholder="Full name">
+                            <input type="text" name="" id="name-input" placeholder="Full name" autofocus>
                         </div>
 
                         <div class="email-container input-container">
@@ -61,8 +62,9 @@
                         </div>
 
                         <button id="signup-btn" onclick="signUp()">
-                            <p>Create account</p>
-                            <i class="bi bi-arrow-right"></i>
+                            <p class="btn-text">Create account</p>
+                            <div hidden class="loader"></div>
+                            <i class="bi bi-arrow-right btn-icon"></i>
                         </button>
 
                         <span class="option">
@@ -97,8 +99,9 @@
                         </div>
 
                         <button onclick="login()" id="login-btn">
-                            <p>Log In</p>
-                            <i class="bi bi-arrow-right"></i>
+                            <p class ="log-btn-text">Log In</p>
+                             <div hidden class="loader log-loader"></div>
+                            <i class="bi bi-arrow-right log-btn-icon"></i>
                         </button>
 
                         <span class="option">
@@ -152,6 +155,142 @@
         </section>
     </div>
 </body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDC0NNzKpS2Otu-iWK-RvQqe0PgMPxzgD0",
+        authDomain: "swerv-auth.firebaseapp.com",
+        projectId: "swerv-auth",
+        storageBucket: "swerv-auth.firebasestorage.app",
+        messagingSenderId: "715376679496",
+        appId: "1:715376679496:web:22768a169f4eea4346567d"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    const signUp = () => {
+        const userName = document.getElementById("name-input").value
+        const email = document.getElementById("email-input").value
+        const password = document.getElementById("pass-input").value
+        const passwordConfirm = document.getElementById("confirm-pass").value
+
+        if (userName.trim() === "" || email.trim() === "" || password.trim() === "" || passwordConfirm.trim() === "") {
+            errorText = "All fields are required!"
+            displayError()
+        } else if (password.length < 6) {
+            errorText = "Password is weak!"
+            displayError()
+        } else if (password !== passwordConfirm) {
+            errorText = "Password does not match!"
+            displayError()
+        } else {
+            // SPIN EFFECT
+            const spinner = document.querySelector(".loader")
+            const btnText = document.querySelector(".btn-text")
+            const btnIcon = document.querySelector(".btn-icon")
+
+            spinner.removeAttribute("hidden")
+            btnText.setAttribute("hidden", "")
+            btnIcon.setAttribute("hidden", "")
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(user)
+                    getLoginForm()
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+
+                    if (errorCode === "auth/email-already-in-use") {
+                        errorText = "Email already in use!"
+                        displayError()
+                    } else if (errorCode === "auth/invalid-email") {
+                        errorText = "Invalid email!"
+                        displayError()
+                    } else {
+                        errorText = "Something went wrong. Please try again!"
+                        displayError()
+                    }
+                })
+                .finally(() => {
+                    spinner.setAttribute("hidden", "")
+                    btnText.removeAttribute("hidden")
+                    btnIcon.removeAttribute("hidden")
+                })
+        }
+    }
+    window.signUp = signUp
+
+    window.addEventListener("keydown", (event) => {
+        if (event.code === "Enter") {
+            signUp()
+        }
+    })
+
+
+    const login = () => {
+        const email = document.getElementById("email-log").value
+        const password = document.getElementById("pass-log").value
+
+        if (email.trim() === "" || password.trim() === "") {
+            errorText = "All fields are required!"
+            displayError()
+        } else {
+
+            // SPINNER EFFECT
+            const spinner = document.querySelector(".log-loader")
+            const btnText = document.querySelector(".log-btn-text")
+            const btnIcon = document.querySelector(".log-btn-icon")
+
+            spinner.removeAttribute("hidden")
+            btnText.setAttribute("hidden", "")
+            btnIcon.setAttribute("hidden", "")
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    window.location.href = "/client/user-page/homepage.html"
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode)
+                    if (errorCode === "auth/invalid-credential") {
+                        errorText = "Invalid email or password"
+                        displayError()
+                    } else {
+                        errorText = "Something went wrong. Please try again!"
+                        displayError()
+                    }
+                })
+                .finally(() => {
+                    spinner.setAttribute("hidden", "")
+                    btnText.removeAttribute("hidden")
+                    btnIcon.removeAttribute("hidden")
+                })
+        }
+    }
+    window.login = login
+
+    window.addEventListener("keydown", (event) => {
+        if (event.code === "Enter") {
+            login()
+        }
+    })
+</script>
+
 <script src="/client/user-login/user-login.js"></script>
 
 </html>

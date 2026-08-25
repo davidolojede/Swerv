@@ -11,6 +11,7 @@ const getLoginForm = () => {
     signupForm.style.display = "none"
     loginText.style.display = "none"
     signupText.style.display = "inline"
+    document.getElementById("email-log").focus()
 }
 
 const getSignupForm = () => {
@@ -18,12 +19,22 @@ const getSignupForm = () => {
     signupForm.style.display = "grid"
     signupText.style.display = "none"
     loginText.style.display = "inline"
+    document.getElementById("name-input").focus()
 }
 
 const inputContainers = document.querySelectorAll(".input-container")
 const formIcons = document.querySelectorAll(".form-icon")
 
+let errorText = ""
 const displayError = () => {
+    const errorBox = document.getElementById("error-box")
+    errorBox.innerHTML = `<i class="bi bi-exclamation-triangle-fill"></i>${errorText}`
+    errorBox.style.display = "flex"
+
+    setTimeout(() => {
+        errorBox.style.display = "none"
+    }, 2500)
+
     inputContainers.forEach(input => {
         input.style.borderColor = "red"
 
@@ -38,72 +49,4 @@ const displayError = () => {
             icon.style.color = "black"
         }, 2500)
     })
-}
-
-const signUp = () => {
-    const userName = document.getElementById("name-input").value
-    const userEmail = document.getElementById("email-input").value
-    const userPass = document.getElementById("pass-input").value
-    const userPassConfirm = document.getElementById("confirm-pass").value
-
-    if (userName.trim() === "" || userEmail.trim() === "" || userPass.trim() === "" || userPassConfirm.trim() === "") {
-        displayError()
-    } else {
-        const checkEmail = userBase.find(newUser => newUser.userEmail === userEmail)
-        if (checkEmail) {
-            displayError()
-            console.log("User found");
-        } else {
-            const passContainer = document.getElementById("pass-check")
-            const confirmPassContainer = document.getElementById("pass-confirm")
-            const passIcons = document.querySelectorAll("bi-lock")
-
-            if (userPassConfirm !== userPass) {
-                passContainer.style.borderColor = "red"
-                confirmPassContainer.style.borderColor = "red"
-
-                passIcons.forEach(icon => {
-                    icon.style.color = "red"
-                })
-                setTimeout(() => {
-                    passContainer.style.borderColor = "#cac7b6"
-                    confirmPassContainer.style.borderColor = "#cac7b6"
-
-                    passIcons.forEach(icon => {
-                        icon.style.color = "black"
-                    })
-                }, 2500)
-            } else {
-                const userDetails = { userName, userEmail, userPass, userPassConfirm }
-                userBase.push(userDetails)
-                localStorage.setItem("userStorage", JSON.stringify(userBase))
-
-                setTimeout(() => {
-                    getLoginForm()
-                }, 2000)
-            }
-        }
-    }
-}
-
-// LOGIN FUNCTION
-const login = () => {
-    const userEmail = document.getElementById("email-log").value
-    const userPass = document.getElementById("pass-log").value
-
-    if (userEmail.trim() === "" || userPass.trim() === "") {
-        displayError()
-    } else {
-        const checkEmail = userBase.find(existingUser => existingUser.userEmail === userEmail)
-        const checkPass = userBase.find(existingUser => existingUser.userPas === userPass)
-
-        if (checkEmail && checkPass) {
-            console.log("Proceeding")
-        } else {
-            displayError()
-
-            document.getElementById("email-log").value = ""
-            document.getElementById("pass-log").value = ""
-        }
-    }
 }
