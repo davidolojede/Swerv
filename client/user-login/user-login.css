@@ -27,7 +27,6 @@ body {
 
 .page-bg {
     background:linear-gradient(180deg, #b4c290 20%, #cdd5b7 60%);
-    /* background:var(--background); */
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -277,8 +276,6 @@ main {
 #auth-methods img {
     max-width: 50px;
     border-radius: 10px;
-    /* padding: 5px; */
-    /* background-color: white; */
     cursor: pointer;
 }
 
@@ -294,7 +291,7 @@ main {
 }
 
 .form-image img {
-    width: clamp(25rem, -14.286rem + 78.57vw, 58.375rem);
+    width: clamp(25rem, -14.286rem + 78.57vw, 59.375rem);
     position: relative;
     z-index: 10;
     right: -150px;
@@ -339,7 +336,6 @@ main {
 /* LOGIN-CONTAINER */
 #login-container {
     align-self: center;
-    /* display: grid; */
     gap: 40px;
     display: none;
     flex: 0 1 550px;
@@ -356,19 +352,6 @@ main {
     gap: 15px;
     width: 100%;
 }
-
-/* .login-form div {
-    display: flex;
-    border: 1px solid var(--icon-bg);
-    background-color: rgba(255, 255, 255, 0.411);
-    gap: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 12px;
-    transition: 0.4s ease-out;
-    align-items: center;
-    padding-left: 15px;
-} */
 
 .login-form div:hover {
     box-shadow: 2px 2px 7px rgba(128, 128, 128, 0.349);
