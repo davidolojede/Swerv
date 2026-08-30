@@ -67,7 +67,6 @@ const cancelModal = () => {
         modalInput.value = ""
     })
 }
-boxed
 
 const addProductKey = () => {
     let productName = document.getElementById("name-input").value
@@ -113,11 +112,10 @@ window.addEventListener("keydown", (event) => {
     }
 })
 
-const displayProducts = (productDetails) => {
+const displayProducts = (productDetails, index) => {
     const productList = document.querySelector(".product-list")
     const productItem = document.createElement("li")
     productItem.classList.add("product-item")
-    productList.appendChild(productItem)
     productItem.innerHTML = `
         <img class="product-image" src="${productDetails.productImage}" alt="">
 
@@ -131,17 +129,22 @@ const displayProducts = (productDetails) => {
                         <span class="stock">${productDetails.quantity}</span>
                         <span class="actions">
                             <i id="hide-btn" class="bi bi-eye"></i>
-                            <i id="delete-btn" onclick="deleteProduct()" class="bi bi-trash"></i>
+                            <i id="delete-btn" onclick="deleteProduct(${index})" class="bi bi-trash"></i>
                         </span>
     `
+    productList.appendChild(productItem)
 }
 
 for (let index = 0; index < allProducts.length; index++) {
-    displayProducts(allProducts[index])
-
-    const deleteProduct = (index) => {
-        allProducts.splice(index, 1)
-        displayProducts(allProducts[index])
-    }
+    displayProducts(allProducts[index], index)
 }
 
+const deleteProduct = (index) => {
+    allProducts.splice(index, 1)
+    localStorage.setItem("productStorage", JSON.stringify(allProducts))
+    console.log(allProducts);
+
+    for (let n = 0; n < allProducts.length; n++) {
+        displayProducts(allProducts[n])
+    }
+} 
