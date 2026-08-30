@@ -68,14 +68,34 @@ const cancelModal = () => {
     })
 }
 
+// STAT ELEMENTS
+const totalProductNumber = document.getElementById("total-product-num")
+totalProductNumber.innerHTML = allProducts.length
+
+
+
 const addProductKey = () => {
-    let productName = document.getElementById("name-input").value
-    let productID = Number(document.getElementById("id-input").value)
-    let category = document.getElementById("category-input").value
-    let productSize = Number(document.getElementById("size-input").value)
-    let price = Number(document.getElementById("price-input").value)
-    let quantity = Number(document.getElementById("quantity-input").value)
-    let productImage = document.getElementById("image-input").files[0]
+    const productName = document.getElementById("name-input").value
+    const productID = Number(document.getElementById("id-input").value)
+    const category = document.getElementById("category-input").value
+    const productSize = Number(document.getElementById("size-input").value)
+    const price = Number(document.getElementById("price-input").value)
+    const quantity = Number(document.getElementById("quantity-input").value)
+    const productImage = document.getElementById("image-input").files[0]
+
+    // Validation
+    const idExists = allProducts.some(product => product.productID === productID)
+    if (idExists) {
+        addProduct.style.backgroundColor = "orange"
+        alert("Product ID already exists!")
+        setTimeout(() => {
+            addProduct.style.backgroundColor = "#34452D"
+        }, 1000)
+        return
+    }
+
+    // OTHER PROPERTIES
+    let isActive = true
 
     if (productName.trim() === "" || !productID || productID <= 100 || category.trim() === "" || !productSize || productSize < 1 || !price || price < 1 || !quantity || quantity < 1 || !productImage) {
         addProduct.style.backgroundColor = "red"
@@ -85,7 +105,7 @@ const addProductKey = () => {
     } else {
         let reader = new FileReader()
         reader.onload = () => {
-            const productDetails = { productName, productID, category, productSize, price, quantity, productImage: reader.result }
+            const productDetails = { productName, productID, category, productSize, price, quantity, productImage: reader.result, isActive }
             allProducts.push(productDetails)
             localStorage.setItem("productStorage", JSON.stringify(allProducts))
 
@@ -93,7 +113,8 @@ const addProductKey = () => {
                 modalInput.value = ""
             })
             cancelModal()
-            displayProducts(productDetails)
+            displayProducts(productDetails, allProducts.length - 1)
+            totalProductNumber.innerHTML = allProducts.length
             console.log(allProducts)
         }
         reader.readAsDataURL(productImage)
@@ -101,13 +122,13 @@ const addProductKey = () => {
 }
 
 window.addEventListener("keydown", (event) => {
-    if (event.code === "Enter") {
+    if (event.code === "Enter" && modal.classList.contains("grid-display")) {
         addProductKey()
     }
 })
 
 window.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
+    if (event.code === "Escape" && modal.classList.contains("grid-display")) {
         cancelModal()
     }
 })
@@ -115,6 +136,17 @@ window.addEventListener("keydown", (event) => {
 const displayProducts = (productDetails, index) => {
     const productList = document.querySelector(".product-list")
     const productItem = document.createElement("li")
+
+    let eyeIcon
+    let eyeColor
+    if (productDetails.isActive === true) {
+        eyeIcon = "bi-eye"
+        eyeColor = "green"
+    } else {
+        eyeIcon = "bi-eye-slash"
+        eyeColor = "red"
+    }
+
     productItem.classList.add("product-item")
     productItem.innerHTML = `
         <img class="product-image" src="${productDetails.productImage}" alt="">
@@ -128,12 +160,13 @@ const displayProducts = (productDetails, index) => {
                         <span class="product-price">₦${productDetails.price}</span>
                         <span class="stock">${productDetails.quantity}</span>
                         <span class="actions">
-                            <i id="hide-btn" class="bi bi-eye"></i>
-                            <i id="delete-btn" onclick="deleteProduct(${index})" class="bi bi-trash"></i>
+                            <i onclick="toggleActive(${index})" class="bi ${eyeIcon} hide-btn" style="color:${eyeColor};"></i>
+                            <i onclick="deleteProduct(${index})" class="bi bi-trash delete-btn"></i>
                         </span>
     `
     productList.appendChild(productItem)
 }
+
 
 for (let index = 0; index < allProducts.length; index++) {
     displayProducts(allProducts[index], index)
@@ -142,9 +175,23 @@ for (let index = 0; index < allProducts.length; index++) {
 const deleteProduct = (index) => {
     allProducts.splice(index, 1)
     localStorage.setItem("productStorage", JSON.stringify(allProducts))
-    console.log(allProducts);
+    const productList = document.querySelector(".product-list")
+    productList.innerHTML = ""
+    totalProductNumber.innerHTML = allProducts.length
 
     for (let n = 0; n < allProducts.length; n++) {
-        displayProducts(allProducts[n])
+        displayProducts(allProducts[n], n)
     }
-} 
+    console.log(allProducts);
+}
+
+const toggleActive = (index) => {
+    allProducts[index].isActive = !allProducts[index].isActive
+    localStorage.setItem("productStorage", JSON.stringify(allProducts))
+    const productList = document.querySelector(".product-list")
+    productList.innerHTML = ""
+    for (let n = 0; n < allProducts.length; n++) {
+        displayProducts(allProducts[n], n)
+    }
+    console.log(allProducts)
+}
