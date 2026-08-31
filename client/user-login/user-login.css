@@ -288,6 +288,8 @@ main {
     display: grid;
     height: calc(88vh - 100px);
     width: 100%;
+    pointer-events: none;
+    user-select: none;
 }
 
 .form-image img {

@@ -12,6 +12,8 @@ const getLoginForm = () => {
     loginText.style.display = "none"
     signupText.style.display = "inline"
     document.getElementById("email-log").focus()
+    console.log("Login!");
+    
 }
 
 const getSignupForm = () => {
@@ -20,6 +22,8 @@ const getSignupForm = () => {
     signupText.style.display = "none"
     loginText.style.display = "inline"
     document.getElementById("name-input").focus()
+    console.log("Signup!");
+    
 }
 
 const inputContainers = document.querySelectorAll(".input-container")

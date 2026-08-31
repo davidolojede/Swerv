@@ -231,13 +231,6 @@
     }
     window.signUp = signUp
 
-    window.addEventListener("keydown", (event) => {
-        if (event.code === "Enter") {
-            signUp()
-        }
-    })
-
-
     const login = () => {
         const email = document.getElementById("email-log").value
         const password = document.getElementById("pass-log").value
@@ -246,7 +239,6 @@
             errorText = "All fields are required!"
             displayError()
         } else {
-
             // SPINNER EFFECT
             const spinner = document.querySelector(".log-loader")
             const btnText = document.querySelector(".log-btn-text")
@@ -286,7 +278,11 @@
 
     window.addEventListener("keydown", (event) => {
         if (event.code === "Enter") {
-            login()
+            if (signupForm.style.display === "grid") {
+                signUp()
+            } else {
+                login()
+            }
         }
     })
 

@@ -1,3 +1,18 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDC0NNzKpS2Otu-iWK-RvQqe0PgMPxzgD0",
+    databaseURL: "https://swerv-auth-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "swerv-auth",
+    appId: "1:715376679496:web:22768a169f4eea4346567d"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const referenceInDB = ref(database, "products")
+
+
 const allProducts = JSON.parse(localStorage.getItem("productStorage")) || []
 
 const dashboardBtn = document.getElementById("goto-dashboard")
@@ -68,11 +83,18 @@ const cancelModal = () => {
     })
 }
 
-// STAT ELEMENTS
+//PRODUCT STAT ELEMENTS
 const totalProductNumber = document.getElementById("total-product-num")
+const totalActiveNumber = document.getElementById("total-active-num")
+const totalInactiveNumber = document.getElementById("total-inactive-num")
+const outOfStockNumber = document.getElementById("out-of-stock-num")
+
+const activeCount = allProducts.filter(product => product.isActive === true)
+const inactiveCount = allProducts.filter(product => product.isActive === false)
+
 totalProductNumber.innerHTML = allProducts.length
-
-
+totalActiveNumber.innerHTML = activeCount.length
+totalInactiveNumber.innerHTML = inactiveCount.length
 
 const addProductKey = () => {
     const productName = document.getElementById("name-input").value
@@ -106,8 +128,7 @@ const addProductKey = () => {
         let reader = new FileReader()
         reader.onload = () => {
             const productDetails = { productName, productID, category, productSize, price, quantity, productImage: reader.result, isActive }
-            allProducts.push(productDetails)
-            localStorage.setItem("productStorage", JSON.stringify(allProducts))
+            push(referenceInDB, productDetails)
 
             allModalInputs.forEach(modalInput => {
                 modalInput.value = ""
@@ -115,11 +136,20 @@ const addProductKey = () => {
             cancelModal()
             displayProducts(productDetails, allProducts.length - 1)
             totalProductNumber.innerHTML = allProducts.length
+            const activeCount = allProducts.filter(product => product.isActive === true)
+            const inactiveCount = allProducts.filter(product => product.isActive === false)
+            totalActiveNumber.innerHTML = activeCount.length
+            totalInactiveNumber.innerHTML = inactiveCount.length
             console.log(allProducts)
         }
         reader.readAsDataURL(productImage)
     }
 }
+window.addProductKey = addProductKey;
+onValue(referenceInDB, (snapshot) => {
+    console.log(snapshot.val());
+})
+window.onValue = onValue
 
 window.addEventListener("keydown", (event) => {
     if (event.code === "Enter" && modal.classList.contains("grid-display")) {
@@ -149,11 +179,13 @@ const displayProducts = (productDetails, index) => {
 
     productItem.classList.add("product-item")
     productItem.innerHTML = `
+    <div class ="product-details">
         <img class="product-image" src="${productDetails.productImage}" alt="">
 
                         <div class="product-info">
                             <p class="product-name">${productDetails.productName}</p>
                             <p class="product-size">Size: ${productDetails.productSize}</p>
+                        </div>
                         </div>
                         <span class="product-id">SKU-${productDetails.productID}</span>
                         <span class="product-category">${productDetails.category}</span>
@@ -178,6 +210,10 @@ const deleteProduct = (index) => {
     const productList = document.querySelector(".product-list")
     productList.innerHTML = ""
     totalProductNumber.innerHTML = allProducts.length
+    const activeCount = allProducts.filter(product => product.isActive === true)
+    const inactiveCount = allProducts.filter(product => product.isActive === false)
+    totalActiveNumber.innerHTML = activeCount.length
+    totalInactiveNumber.innerHTML = inactiveCount.length
 
     for (let n = 0; n < allProducts.length; n++) {
         displayProducts(allProducts[n], n)
@@ -193,5 +229,9 @@ const toggleActive = (index) => {
     for (let n = 0; n < allProducts.length; n++) {
         displayProducts(allProducts[n], n)
     }
+    const activeCount = allProducts.filter(product => product.isActive === true)
+    const inactiveCount = allProducts.filter(product => product.isActive === false)
+    totalActiveNumber.innerHTML = activeCount.length
+    totalInactiveNumber.innerHTML = inactiveCount.length
     console.log(allProducts)
 }

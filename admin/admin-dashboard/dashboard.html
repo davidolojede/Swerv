@@ -299,7 +299,7 @@
                             <i class="bi bi-tag product-stat-icon"></i>
                             <p class="card-name">Active Products</p>
                         </div>
-                        <h2 class="card-number">112</h2>
+                        <h2 id="total-active-num" class="card-number"></h2>
 
                     </div>
 
@@ -308,7 +308,7 @@
                             <i class="i bi-eye-slash product-stat-icon"></i>
                             <p class="card-name">Inactive Products</p>
                         </div>
-                        <h2 class="card-number">12</h2>
+                        <h2 id="total-inactive-num" class="card-number">12</h2>
 
                     </div>
 
@@ -317,7 +317,7 @@
                             <i class="bi bi-archive product-stat-icon"></i>
                             <p class="card-name">Out of Stock</p>
                         </div>
-                        <h2 class="card-number">0</h2>
+                        <h2 id="out-of-stock-num" class="card-number">0</h2>
                     </div>
                 </div>
             </section>
@@ -354,7 +354,6 @@
 
                 <div class="column-title">
                     <p class="product-title">PRODUCT</p>
-                    <p></p>
                     <p>ID</p>
                     <p>CATEGORY</p>
                     <p>PRICE</p>
@@ -365,83 +364,7 @@
                 <div id="product-line"></div>
 
                 <ul class="product-list">
-                    <!-- <li class="product-item">
-                        <img class="product-image" src="/assets/products/shoe-1.webp" alt="">
-
-                        <div class="product-info">
-                            <p class="product-name">Air Jordan 1 Retro</p>
-                            <p class="product-size">Size: 42</p>
-                        </div>
-                        <span class="product-id">SKU-3493843</span>
-                        <span class="product-category">Nike</span>
-                        <span class="product-price">₦180,000</span>
-                        <span class="stock">12</span>
-                        <span class="actions">
-                            <i class="bi bi-eye"></i>
-                            <i class="bi bi-pencil"></i>
-                        </span>
-                    </li>
-
-                    <li class="product-item">
-                        <img class="product-image" src="/assets/products/shoe-1.webp" alt="">
-
-                        <div class="product-info">
-                            <p class="product-name">Air Jordan 1 Retro</p>
-                            <p class="product-size">Size: 42</p>
-                        </div>
-                        <span class="product-id">SKU-3493843</span>
-                        <span class="product-category">Nike</span>
-                        <span class="product-price">₦180,000</span>
-                        <span class="stock">12</span>
-                        <span class="actions">
-                            <i class="bi bi-eye"></i>
-                            <i class="bi bi-pencil"></i>
-                        </span>
-                    </li> -->
-
-                    <!-- <li class="product">
-                            <img src="/assets/products/shoe-1.webp" alt="">
-
-                            <div class="product-info">
-                                <p class="product-name">Nike Dunk Low</p>
-                                <span class="size">Size: 43</span>
-                            </div>
-
-                            <h3 class="sales-amount">91 sales</h3>
-                        </li>
-
-                        <li class="product">
-                            <img src="/assets/products/shoe-1.webp" alt="">
-
-                            <div class="product-info">
-                                <p class="product-name">New Balance 550</p>
-                                <span class="size">Size: 42</span>
-                            </div>
-
-                            <h3 class="sales-amount">74 sales</h3>
-                        </li>
-
-                        <li class="product">
-                            <img src="/assets/products/shoe-1.webp" alt="">
-
-                            <div class="product-info">
-                                <p class="product-name">Air Max 95</p>
-                                <span class="size">Size: 41</span>
-                            </div>
-
-                            <h3 class="sales-amount">69 sales</h3>
-                        </li>
-
-                        <li class="product">
-                            <img src="/assets/products/shoe-1.webp" alt="">
-
-                            <div class="product-info">
-                                <p class="product-name">Yeezy Boost 350</p>
-                                <span class="size">Size: 40</span>
-                            </div>
-
-                            <h3 class="sales-amount">64 sales</h3>
-                        </li> -->
+                   
                 </ul>
             </div>
         </div>
@@ -504,6 +427,6 @@
     </div>
     </div>
 </body>
-<script src="/admin/admin-dashboard/dashboard.js"></script>
+<script type="module" src="/admin/admin-dashboard/dashboard.js"></script>
 
 </html>

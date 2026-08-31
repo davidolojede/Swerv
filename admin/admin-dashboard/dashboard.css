@@ -391,6 +391,7 @@ header {
     padding: clamp(8px, 1vw, 10px) clamp(20px, 3vw, 40px);
     flex-direction: column;
     gap: 30px;
+    overflow: hidden;
 }
 
 .product-overview .card-title {
@@ -483,7 +484,7 @@ header {
 
 .column-title {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2.5fr 1fr 1.2fr 1fr 0.8fr 1fr;
     font-size: 13px;
     text-align: center;
 }
@@ -492,9 +493,15 @@ header {
     text-align: left;
 }
 
+.product-details {
+    display: flex;
+    align-items:center;
+    gap: 15px;
+    text-align:left;
+}
 .product-item {
     display: grid;
-    grid-template-columns: 0fr 1fr 1fr 1fr 1fr 0.5fr 1fr;
+    grid-template-columns: 2.5fr 1fr 1.2fr 1fr 0.8fr 1fr;
     width: 100%;
     text-align: center;
 }
@@ -509,6 +516,21 @@ header {
 .product-list {
     display: grid;
     gap: 25px;
+    max-height: calc(100vh - 500px);
+    overflow-y: auto;
+}
+
+.product-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.product-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.product-list::-webkit-scrollbar-thumb {
+    background-color: var(--icon-bg);
+    border-radius: 10px;
 }
 
 .product-image {
@@ -603,7 +625,7 @@ header {
 #id-input::-webkit-inner-spin-button,
 #price-input::-webkit-inner-spin-button,
 #size-input::-webkit-inner-spin-button,
-#quantity-input::-webkit-inner-spin-button  {
+#quantity-input::-webkit-inner-spin-button {
     appearance: none;
 }
 
