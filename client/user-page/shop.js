@@ -1,17 +1,37 @@
-const allProducts = JSON.parse(localStorage.getItem("productStorage")) || []
-const optionAll = document.getElementById("all-list")
-const optionEveryday = document.getElementById("everyday-list")
-const optionTraining = document.getElementById("training-list")
-const optionCorporate = document.getElementById("corporate-list")
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
-// ALL PRODUCTS SECTION
-optionAll.innerHTML = ""
-for (let index = 0; index < allProducts.length; index++) {
-    const product = allProducts[index]
+const firebaseConfig = {
+    apiKey: "AIzaSyDC0NNzKpS2Otu-iWK-RvQqe0PgMPxzgD0",
+    databaseURL: "https://swerv-auth-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "swerv-auth",
+    appId: "1:715376679496:web:22768a169f4eea4346567d"
+};
 
-    if (product.isActive !== false) {
-        optionAll.innerHTML += `
-            <div class="product">
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app)
+const referenceInDB = ref(database, "products")
+
+onValue(referenceInDB, (snapshot) => {
+    const optionAll = document.getElementById("all-list")
+    const optionEveryday = document.getElementById("everyday-list")
+    const optionTraining = document.getElementById("training-list")
+    const optionCorporate = document.getElementById("corporate-list")
+
+    if (snapshot.exists()) {
+        const allProducts = Object.entries(snapshot.val())
+        optionAll.innerHTML = ""
+        optionEveryday.innerHTML = ""
+        optionTraining.innerHTML = ""
+        optionCorporate.innerHTML = ""
+
+        allProducts.forEach(([key, product]) => {
+
+
+            // ALL PRODUCTS SECTION
+            if (product.isActive !== false) {
+                optionAll.innerHTML += `
+                    <div class="product">
                         <div class="like">
                             <div title="Like" class="heart-container">
                                 <input id="Give-It-An-Id" class="checkbox" type="checkbox">
@@ -41,21 +61,16 @@ for (let index = 0; index < allProducts.length; index++) {
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     
-                            <i class="bi bi-handbag-fill add-to-cart-icon"></i>
+                            <i onclick="addToCart('${key}')" class="bi bi-handbag-fill add-to-cart-icon"></i>
                         </div>
-                    </div>
-    `
-    }
-}
+                     </div>`
+            }
 
-// EVERYDAY SECTION
-optionEveryday.innerHTML = ""
-for (let index = 0; index < allProducts.length; index++) {
-    const product = allProducts[index]
 
-    if (product.category == "everyday") {
-        optionEveryday.innerHTML += `
-            <div class="product">
+            // EVERYDAY SECTION
+            if (product.category == "everyday" && product.isActive !== false) {
+                optionEveryday.innerHTML += `
+                <div class="product">
                         <div class="like">
                             <div title="Like" class="heart-container">
                                 <input id="Give-It-An-Id" class="checkbox" type="checkbox">
@@ -85,22 +100,16 @@ for (let index = 0; index < allProducts.length; index++) {
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     
-                            <i class="bi bi-handbag-fill add-to-cart-icon"></i>
+                            <i onclick="addToCart('${key}')" class="bi bi-handbag-fill add-to-cart-icon"></i>
                         </div>
-                    </div>
-    `
-    }
-}
+                    </div>`
+            }
 
 
-// TRAINING SECTION
-optionTraining.innerHTML = ""
-for (let index = 0; index < allProducts.length; index++) {
-    const product = allProducts[index]
-
-    if (product.category == "training") {
-        optionTraining.innerHTML += `
-            <div class="product">
+            // TRAINING SECTION
+            if (product.category == "training" && product.isActive !== false) {
+                optionTraining.innerHTML += `
+                <div class="product">
                         <div class="like">
                             <div title="Like" class="heart-container">
                                 <input id="Give-It-An-Id" class="checkbox" type="checkbox">
@@ -130,22 +139,17 @@ for (let index = 0; index < allProducts.length; index++) {
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     
-                            <i class="bi bi-handbag-fill add-to-cart-icon"></i>
+                            <i onclick="addToCart('${key}')" class="bi bi-handbag-fill add-to-cart-icon"></i>
                         </div>
-                    </div>
-    `
-    }
-}
+                    </div>`
+            }
 
 
-// CORPORATE SECTION
-optionCorporate.innerHTML = ""
-for (let index = 0; index < allProducts.length; index++) {
-    const product = allProducts[index]
 
-    if (product.category == "corporate") {
-        optionCorporate.innerHTML += `
-            <div class="product">
+            // CORPORATE SECTION
+            if (product.category == "corporate" && product.isActive !== false) {
+                optionCorporate.innerHTML += `
+                <div class="product">
                         <div class="like">
                             <div title="Like" class="heart-container">
                                 <input id="Give-It-An-Id" class="checkbox" type="checkbox">
@@ -175,9 +179,44 @@ for (let index = 0; index < allProducts.length; index++) {
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     
-                            <i class="bi bi-handbag-fill add-to-cart-icon"></i>
+                            <i onclick="addToCart('${key}')" class="bi bi-handbag-fill add-to-cart-icon"></i>
                         </div>
-                    </div>
-    `
+                    </div>`
+            }
+        })
     }
+})
+window.onValue = onValue
+
+// ADD TO CART
+const addToCart = (key) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || []
+    const existingItem = cart.find(item => item.key === key)
+
+    if (existingItem) {
+        existingItem.quantity += 1
+    } else {
+        cart.push({ key, quantity: 1 })
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart))
+    updateCartCount()
 }
+window.addToCart = addToCart
+
+
+// UPDATE CART COUNT
+const updateCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || []
+
+    let totalItems = 0
+    cart.forEach(item => {
+        totalItems += item.quantity
+    })
+
+    const cartCountBadge = document.getElementById("cart-count")
+    cartCountBadge.innerHTML = totalItems
+}
+window.updateCartCount = updateCartCount
+
+updateCartCount()

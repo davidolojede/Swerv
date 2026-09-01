@@ -17,7 +17,9 @@
 <body>
     <nav>
         <div class="left-nav">
-            <a href="./homepage.html"><h2>Swerv</h2></a>
+            <a href="./homepage.html">
+                <h2>Swerv</h2>
+            </a>
         </div>
 
         <div class="center-nav">
@@ -29,7 +31,10 @@
         </div>
 
         <div class="right-nav">
-            <i class="bi bi-handbag nav-icon"></i>
+            <div class="cart-icon-container">
+                <i class="bi bi-handbag nav-icon"></i>
+                <span id="cart-count">0</span>
+            </div>
             <i class="bi bi-person nav-icon"></i>
         </div>
     </nav>
@@ -100,6 +105,6 @@
         <p>© 2026 Swerv. All rights reserved.</p>
     </footer>
 </body>
-<script src="./shop.js"></script>
+<script type="module" src="./shop.js"></script>
 
 </html>
