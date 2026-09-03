@@ -57,17 +57,16 @@
                     <label for="cache-info">Remember me</label>
                 </div>
 
-                <button onclick="logInAdmin()" id="sign-in-btn">Sign In</button>
+                <button id="sign-in-btn" onclick="logInAdmin()">
+                    <p class="btn-text">Sign In</p>
+                    <div hidden class="loader"></div>
+                </button>
                 <p id="join-admin">Don't have an account? Contact Head Admin</p>
 
             </div>
         </div>
     </div>
 </body>
-<script type="module">
-
-</script>
-
-<script src="/admin/admin-login/admin-login.js"></script>
+<script type="module" src="/admin/admin-login/admin-login.js"></script>
 
 </html>

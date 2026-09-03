@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDC0NNzKpS2Otu-iWK-RvQqe0PgMPxzgD0",
@@ -9,40 +10,82 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const database = getDatabase(app);
 const referenceInDB = ref(database, "products")
 
-onValue(referenceInDB, (snapshot) => {
-    const productList = document.querySelector(".product-list")
+const productList = document.querySelector(".product-list")
+const stockFilter = document.getElementById("stock-filter")
+
+const filterAndDisplay = (allProducts) => {
     productList.innerHTML = ""
+    const filterStatus = stockFilter.value
 
-    const totalProductNumber = document.getElementById("total-product-num")
-    const totalActiveNumber = document.getElementById("total-active-num")
-    const totalInactiveNumber = document.getElementById("total-inactive-num")
-    const outOfStockNumber = document.getElementById("out-of-stock-num")
-    if (snapshot.exists()) {
-        const allProducts = Object.entries(snapshot.val())
-
+    if (filterStatus === "All Status") {
         allProducts.forEach(([key, productDetails]) => {
             displayProducts(key, productDetails)
+            console.log("All Status");
+
         })
-
-        //PRODUCT STAT ELEMENTS
-
-        const productCount = allProducts.length
-        totalProductNumber.innerHTML = productCount
-        const activeCount = allProducts.filter(([key, productDetails]) => productDetails.isActive === true)
-        const inactiveCount = allProducts.filter(([key, productDetails]) => productDetails.isActive === false)
-
-        totalActiveNumber.innerHTML = activeCount.length
-        totalInactiveNumber.innerHTML = inactiveCount.length
-    } else {
-        totalProductNumber.innerHTML = 0
-        totalActiveNumber.innerHTML = 0
-        totalInactiveNumber.innerHTML = 0
+    } else if (filterStatus === "High Stock") {
+        allProducts.forEach(([key, productDetails]) => {
+            if (productDetails.quantity > 200) {
+                displayProducts(key, productDetails)
+                console.log("High Stock");
+            }
+        })
+    } else if (filterStatus === "Low Stock") {
+        allProducts.forEach(([key, productDetails]) => {
+            if (productDetails.quantity < 200) {
+                displayProducts(key, productDetails)
+                console.log("Low Stock");
+            }
+        })
+    } else if (filterStatus === "Out of Stock") {
+        allProducts.forEach(([key, productDetails]) => {
+            if (productDetails.quantity <= 0) {
+                displayProducts(key, productDetails)
+                console.log("Out of Stock");
+            }
+        })
     }
+}
+window.filterAndDisplay = filterAndDisplay
+
+stockFilter.addEventListener("change", () => {
+    loadProducts()
 })
-window.onValue = onValue
+
+const loadProducts = () => {
+    onValue(referenceInDB, (snapshot) => {
+        const totalProductNumber = document.getElementById("total-product-num")
+        const totalActiveNumber = document.getElementById("total-active-num")
+        const totalInactiveNumber = document.getElementById("total-inactive-num")
+        const outOfStockNumber = document.getElementById("out-of-stock-num")
+
+        if (snapshot.exists()) {
+            const allProducts = Object.entries(snapshot.val())
+            filterAndDisplay(allProducts)
+
+            //PRODUCT STAT ELEMENTS
+            const productCount = allProducts.length
+            totalProductNumber.innerHTML = productCount
+            const activeCount = allProducts.filter(([key, productDetails]) => productDetails.isActive === true)
+            const inactiveCount = allProducts.filter(([key, productDetails]) => productDetails.isActive === false)
+
+            totalActiveNumber.innerHTML = activeCount.length
+            totalInactiveNumber.innerHTML = inactiveCount.length
+        } else {
+            totalProductNumber.innerHTML = 0
+            totalActiveNumber.innerHTML = 0
+            totalInactiveNumber.innerHTML = 0
+        }
+    })
+    window.onValue = onValue
+}
+window.loadProducts = loadProducts
+loadProducts()
+
 
 const dashboardBtn = document.getElementById("goto-dashboard")
 const productsBtn = document.getElementById("goto-products")
@@ -64,6 +107,7 @@ const goToDashboard = () => {
 
     localStorage.setItem("currentView", "dashboard")
 }
+window.goToDashboard = goToDashboard
 
 const goToProduct = () => {
     productSection.classList.add("flex-display")
@@ -74,6 +118,7 @@ const goToProduct = () => {
 
     localStorage.setItem("currentView", "product")
 }
+window.goToProduct = goToProduct
 
 const view = localStorage.getItem("currentView")
 if (view === "dashboard") {
@@ -84,6 +129,7 @@ if (view === "dashboard") {
 
 const logOut = () => {
     setTimeout(() => {
+        signOut(auth);
         window.location.href = "/admin/admin-login/index.html"
     }, 1000)
 }
@@ -91,6 +137,7 @@ const logOut = () => {
 addCustomerBtn.addEventListener("click", () => {
     goToProduct()
 })
+window.logOut = logOut
 
 
 // PRODUCT SECTION
@@ -122,38 +169,44 @@ const addProductKey = () => {
     const price = Number(document.getElementById("price-input").value)
     const quantity = Number(document.getElementById("quantity-input").value)
     const productImage = document.getElementById("image-input").files[0]
+    let isActive = true
 
     // Validation
-    // const idExists = allProducts.some(product => product.productID === productID)
-    // if (idExists) {
-    //     addProduct.style.backgroundColor = "orange"
-    //     alert("Product ID already exists!")
-    //     setTimeout(() => {
-    //         addProduct.style.backgroundColor = "#34452D"
-    //     }, 1000)
-    //     return
-    // }
+    onValue(referenceInDB, (snapshot) => {
+        const allProducts = Object.entries(snapshot.val());
 
-    // OTHER PROPERTIES
-    let isActive = true
-    if (productName.trim() === "" || !productID || productID <= 100 || category.trim() === "" || !productSize || productSize < 1 || !price || price < 1 || !quantity || quantity < 1 || !productImage) {
-        addProduct.style.backgroundColor = "red"
-        setTimeout(() => {
-            addProduct.style.backgroundColor = "#34452D"
-        }, 1000)
-    } else {
-        let reader = new FileReader()
-        reader.onload = () => {
-            const productDetails = { productName, productID, category, productSize, price, quantity, productImage: reader.result, isActive }
-            push(referenceInDB, productDetails)
+        const idExists = allProducts.some(([key, productDetails]) => productDetails.productID === productID)
+        console.log(idExists);
 
-            allModalInputs.forEach(modalInput => {
-                modalInput.value = ""
-            })
-            cancelModal()
+        console.log(allProducts);
+
+        if (productName.trim() === "" || !productID || productID <= 100 || category.trim() === "" || !productSize || productSize < 1 || !price || price < 1 || !quantity || quantity < 1 || !productImage) {
+            addProduct.style.backgroundColor = "red"
+            setTimeout(() => {
+                addProduct.style.backgroundColor = "#34452D"
+            }, 1000)
+        } else if (idExists) {
+            addProduct.style.backgroundColor = "orange"
+            alert("Product ID already exists!")
+            setTimeout(() => {
+                addProduct.style.backgroundColor = "#34452D"
+            }, 1000)
+            return
+        } else {
+            let reader = new FileReader()
+            reader.onload = () => {
+                const productDetails = { productName, productID, category, productSize, price, quantity, productImage: reader.result, isActive }
+                push(referenceInDB, productDetails)
+
+                allModalInputs.forEach(modalInput => {
+                    modalInput.value = ""
+                })
+                cancelModal()
+            }
+            reader.readAsDataURL(productImage)
         }
-        reader.readAsDataURL(productImage)
-    }
+    }, {onlyOnce: true})
+
 }
 window.addProductKey = addProductKey;
 
@@ -197,7 +250,7 @@ const displayProducts = (index, productDetails) => {
                         </div>
                         <span class="product-id">SKU-${productDetails.productID}</span>
                         <span class="product-category">${productDetails.category}</span>
-                        <span class="product-price">₦${productDetails.price}</span>
+                        <span class="product-price">₦${productDetails.price.toLocaleString()}</span>
                         <span class="stock">${productDetails.quantity}</span>
                         <span class="actions">
                             <i onclick="toggleActive('${index}')" class="bi ${eyeIcon} hide-btn" style="color:${eyeColor};"></i>

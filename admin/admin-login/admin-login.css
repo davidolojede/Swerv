@@ -26,7 +26,7 @@ body {
     height: 100vh;
     display: grid;
     grid-template-columns: 2fr 1fr;
-      position: relative;
+    position: relative;
 }
 
 .vector-container {
@@ -72,7 +72,7 @@ body {
     height: 90%;
 }
 
-#display-error{
+#display-error {
     border: 1px solid red;
     padding: 10px 20px;
     color: red;
@@ -86,6 +86,7 @@ body {
     display: none;
     gap: 10px;
 }
+
 .form {
     flex: 1;
     display: flex;
@@ -125,7 +126,7 @@ body {
 }
 
 .input-container {
-    display:flex;
+    display: flex;
     align-items: center;
     padding: 0px 15px;
     border: 1px solid black;
@@ -144,7 +145,7 @@ body {
     display: block;
     transition: 0.3s ease-out;
     font-family: 'Manrope', sans-serif;
-    border:none;
+    border: none;
     width: 100%;
     height: 100%;
     flex: 1;
@@ -162,19 +163,22 @@ body {
 .form-icon {
     transition: 0.4s ease;
 }
+
 .inputs input::placeholder {
     font-size: 1.2rem;
     color: rgba(128, 128, 128, 0.493);
     font-family: 'Manrope', sans-serif;
 }
 
-.inputs input:focus{
+.inputs input:focus {
     border: none;
-    outline:none;
+    outline: none;
 }
+
 .input-container:focus {
     border: 1px solid var(--contrast);
 }
+
 .log-cache {
     display: flex;
     gap: 12px;
@@ -192,11 +196,48 @@ body {
         var(--contrast);
     color: white;
     transition: 0.4s ease-out;
+    display: flex;
+    justify-content: center;
 }
 
 #sign-in-btn:hover {
     box-shadow: 2px 3px 4px rgba(128, 128, 128, 0.507);
 }
+
+
+/* LOADER */
+.loader {
+    border: 4px solid rgba(0, 0, 0, .1);
+    border-left-color: transparent;
+    border-radius: 50%;
+    background-color: none;
+}
+
+.loader {
+    border: 4px solid red(0, 0, 0, .1);
+    border-left-color: transparent;
+    width: 36px;
+    height: 36px;
+}
+
+.loader {
+    border: 4px solid var(--surface);
+    border-left-color: transparent;
+    width: 22px;
+    height: 22px;
+    animation: spin89345 1s linear infinite;
+}
+
+@keyframes spin89345 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 
 #join-admin {
     text-align: center;
@@ -228,6 +269,6 @@ body {
     }
 
     #form-logo {
-        text-align:center;
+        text-align: center;
     }
 }

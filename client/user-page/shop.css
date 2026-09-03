@@ -91,6 +91,7 @@ nav {
 .cart-icon-container {
     position: relative;
     display: inline-block;
+    color: white;
 }
 
 #cart-count {

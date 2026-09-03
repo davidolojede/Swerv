@@ -82,6 +82,10 @@ nav {
     gap: clamp(15px, 2.5vw, 30px);
 }
 
+.right-nav a {
+    color: white;
+}
+
 .nav-icon {
     font-size: clamp(20px, 2vw, 25px);
     cursor: pointer;

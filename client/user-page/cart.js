@@ -33,7 +33,7 @@ const renderCart = () => {
 
     cart.forEach(cartItem => {
         const product = allProductsCache[cartItem.key];
-        if (!product) return; // Product not loaded or removed
+        if (!product) return; 
 
         const quantity = cartItem.quantity;
         const lineTotal = product.price * quantity;
@@ -55,11 +55,11 @@ const renderCart = () => {
                     <button class="qty-btn qty-increase" onclick="updateQuantity('${cartItem.key}', 1)">+</button>
                 </div>
                 <p class="cart-item-line-total">₦${lineTotal.toLocaleString()}</p>
-                <button class="remove-btn" aria-label="Remove item" onclick="removeFromCart('${cartItem.key}')">
+                <button class="remove-btn" onclick="removeFromCart('${cartItem.key}')">
                     <i class="bi bi-trash"></i>
                 </button>
             </div>
-        `;
+        `
     });
 
     if (totalItems === 0) {
@@ -89,12 +89,12 @@ const removeFromCart = (key) => {
 window.removeFromCart = removeFromCart;
 
 // UPDATE QUANTITY
-const updateQuantity = (key, delta) => {
+const updateQuantity = (key, num) => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const item = cart.find(i => i.key === key);
+    const item = cart.find(product => product.key === key);
 
     if (item) {
-        item.quantity += delta;
+        item.quantity += num;
         if (item.quantity <= 0) {
             cart = cart.filter(i => i.key !== key);
         }
@@ -112,4 +112,6 @@ onValue(referenceInDB, (snapshot) => {
         allProductsCache = {};
     }
     renderCart();
+    console.log(snapshot.val());
+    
 });
