@@ -15,6 +15,7 @@ const referenceInDB = ref(database, "products");
 
 let allProductsCache = {};
 
+
 // RENDER CART
 const renderCart = () => {
     const cartList = document.getElementById("cart-items-list");
@@ -30,18 +31,18 @@ const renderCart = () => {
     let totalItems = 0;
     let totalPrice = 0;
     let validItemsHTML = "";
+    
+        cart.forEach(cartItem => {
+            const product = allProductsCache[cartItem.key];
+            if (!product) return;
 
-    cart.forEach(cartItem => {
-        const product = allProductsCache[cartItem.key];
-        if (!product) return; 
+            const quantity = cartItem.quantity;
+            const lineTotal = product.price * quantity;
 
-        const quantity = cartItem.quantity;
-        const lineTotal = product.price * quantity;
+            totalItems += quantity;
+            totalPrice += lineTotal;
 
-        totalItems += quantity;
-        totalPrice += lineTotal;
-
-        validItemsHTML += `
+            validItemsHTML += `
             <div class="cart-item" data-key="${cartItem.key}">
                 <img class="cart-item-image" src="${product.productImage}" alt="${product.productName}">
                 <div class="cart-item-info">
@@ -60,7 +61,8 @@ const renderCart = () => {
                 </button>
             </div>
         `
-    });
+        });
+   
 
     if (totalItems === 0) {
         if (cartList) cartList.innerHTML = "";
@@ -113,5 +115,5 @@ onValue(referenceInDB, (snapshot) => {
     }
     renderCart();
     console.log(snapshot.val());
-    
+
 });
