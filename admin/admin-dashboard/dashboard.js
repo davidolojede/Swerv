@@ -13,6 +13,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 const referenceInDB = ref(database, "products")
+let cachedProducts = []
 
 const productList = document.querySelector(".product-list")
 const stockFilter = document.getElementById("stock-filter")
@@ -53,7 +54,7 @@ const filterAndDisplay = (allProducts) => {
 window.filterAndDisplay = filterAndDisplay
 
 stockFilter.addEventListener("change", () => {
-    loadProducts()
+    filterAndDisplay(cachedProducts)
 })
 
 const loadProducts = () => {
@@ -64,8 +65,8 @@ const loadProducts = () => {
         const outOfStockNumber = document.getElementById("out-of-stock-num")
 
         if (snapshot.exists()) {
-            const allProducts = Object.entries(snapshot.val())
-            filterAndDisplay(allProducts)
+            cachedProducts = Object.entries(snapshot.val())
+            filterAndDisplay(cachedProducts)
 
             //PRODUCT STAT ELEMENTS
             const productCount = allProducts.length
@@ -145,21 +146,22 @@ const popupModal = document.getElementById("add-product-btn")
 const addProduct = document.getElementById("add-input")
 const modal = document.getElementById("modal-section")
 const allModalInputs = document.querySelectorAll(".modal-input")
+const blank = document.querySelector(".blank-page")
 
 popupModal.addEventListener("click", () => {
     modal.classList.remove("no-display")
     modal.classList.add("grid-display")
+    blank.style.display = "block"
 })
 
 const cancelModal = () => {
     modal.classList.add("no-display")
-
+    
     allModalInputs.forEach((modalInput) => {
         modalInput.value = ""
     })
+    blank.style.display = "none"
 }
-window.cancelModal = cancelModal
-
 
 const addProductKey = () => {
     const productName = document.getElementById("name-input").value
@@ -205,7 +207,7 @@ const addProductKey = () => {
             }
             reader.readAsDataURL(productImage)
         }
-    }, {onlyOnce: true})
+    }, { onlyOnce: true })
 
 }
 window.addProductKey = addProductKey;

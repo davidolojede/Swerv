@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
@@ -9,12 +8,13 @@ const firebaseConfig = {
     appId: "1:715376679496:web:22768a169f4eea4346567d"
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const referenceInDB = ref(database, "products");
 
 let allProductsCache = {};
-
+const checkoutBtn = document.getElementById("checkout-btn");
+checkoutBtn.disabled = true;
 
 // RENDER CART
 const renderCart = () => {
@@ -24,10 +24,9 @@ const renderCart = () => {
     const cartItemSummary = document.getElementById("cart-item-summary");
     const cartSubtotal = document.getElementById("cart-subtotal");
     const cartTotal = document.getElementById("cart-total");
-    const checkoutBtn = document.getElementById("checkout-btn");
 
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+    cartList.innerHTML = "Lorem Ipsum"
+    const cart = JSON.parse(localStorage.getItem("cart")) || []
     let totalItems = 0;
     let totalPrice = 0;
     let validItemsHTML = "";
@@ -79,7 +78,11 @@ const renderCart = () => {
     if (cartItemSummary) cartItemSummary.textContent = `${totalItems} ${totalItems === 1 ? "item" : "items"}`;
     if (cartSubtotal) cartSubtotal.textContent = `₦${totalPrice.toLocaleString()}`;
     if (cartTotal) cartTotal.textContent = `₦${totalPrice.toLocaleString()}`;
+
+    return totalPrice;
 };
+window.renderCart = renderCart
+
 
 // REMOVE FROM CART
 const removeFromCart = (key) => {

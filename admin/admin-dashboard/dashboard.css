@@ -25,6 +25,14 @@ body {
     font-family: 'Manrope', sans-serif;
 }
 
+.blank-page{ 
+    background-color: rgba(0, 0, 0, 0.282);
+    width: 100%;
+    height: 100vh;
+    position:absolute;
+    display: none;
+}
+
 .grid-display {
     display: grid;
 }

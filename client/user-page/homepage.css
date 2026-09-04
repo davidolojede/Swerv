@@ -29,6 +29,7 @@ body {
     overflow-x: hidden;
 }
 
+
 /* HERO SECTION */
 section {
     background: radial-gradient(circle at bottom right, var(--surface) -10%, var(--text-muted) 70%);
@@ -107,14 +108,13 @@ main h1 {
     color: var(--surface);
     font-family: var(--anton);
     font-size: clamp(6.75rem, 13vw, 18.5rem);
-    /* font-size: clamp(6.25rem, 2.083rem + 22.22vw, 18.75rem); */
     font-weight: 600;
     white-space: nowrap;
     line-height: 1;
     text-align: center;
     letter-spacing: clamp(1px, 0.3vw, 4px);
     user-select: none;
-    padding-top:4%;
+    padding-top: 4%;
 }
 
 .hero-mobile-break {
@@ -223,6 +223,7 @@ main:has(#scroll-btn:hover) #home-img {
     color: white;
     transform: translateY(-3px);
 }
+
 
 /* COLLECTION SECTION */
 .collection-container {
@@ -554,10 +555,23 @@ main:has(#scroll-btn:hover) #home-img {
     transform: translateY(-2px);
 }
 
-/* RESPONSIVE BREAKPOINTS */
 
 /* TABLET / SMALL LAPTOP BREAKPOINT */
 @media (max-width: 900px) {
+    #cta {
+        justify-self: center;
+        justify-content: center;
+        justify-items: center;
+        padding-top: 8%;
+        font-size: clamp(7.25rem, -4.6rem + 25vw, 9.3rem);
+    }
+
+    #home-img {
+        bottom: 0;
+        width: clamp(500px, 78%, 1000px);
+        /* width: 1000px; */
+    }
+
     #contact-us-container {
         flex-direction: column;
         margin: 0 clamp(16px, 5vw, 40px);
@@ -587,6 +601,20 @@ main:has(#scroll-btn:hover) #home-img {
 }
 
 @media (max-width: 768px) {
+     #cta {
+        justify-self: center;
+        justify-content: center;
+        justify-items: center;
+        padding-top: 8%;
+        font-size: clamp(7.25rem, -4.6rem + 25vw, 9.3rem);
+    }
+
+    #home-img {
+        bottom: 0;
+        width: clamp(500px, 78%, 1000px);
+        /* width: 1000px; */
+    }
+
     .col-header {
         flex-direction: column;
         align-items: flex-start;
@@ -600,20 +628,30 @@ main:has(#scroll-btn:hover) #home-img {
 
 /* MOBILE SCREEN BREAKPOINT (Hero big text cuts ONLY on mobile) */
 @media (max-width: 640px) {
+     #cta {
+        justify-self: center;
+        justify-content: center;
+        justify-items: center;
+        padding-top: 20%;
+        font-size: clamp(7.25rem, -4.6rem + 25vw, 9.3rem);
+        position: absolute;
+        align-self: center;
+        max-height: 100%;
+        
+    }
+
+    #home-img {
+        bottom: 0;
+        width: clamp(800px, 78%, 1000px);
+    }
+
     .hero-mobile-break {
         display: block;
     }
 
-    main h1#cta {
-        white-space: normal;
-        font-size: clamp(3.2rem, 15.5vw, 5.5rem);
-        line-height: 0.92;
-        letter-spacing: 1px;
-    }
-
     #home-img {
-        width: 82%;
-        bottom: -10%;
+        /* width: 82%; */
+        bottom: -0%;
     }
 
     .button {
@@ -639,6 +677,26 @@ main:has(#scroll-btn:hover) #home-img {
 }
 
 @media (max-width: 420px) {
+    section {
+        height:70vh;
+    }
+     #cta {
+        justify-self: center;
+        justify-content: center;
+        justify-items: center;
+        padding-top: 8%;
+        font-size: clamp(6.25rem, -4.6rem + 25vw, 6.3rem);
+    }
+
+    #home-img {
+        bottom: 100%;
+        padding: 0;
+        margin-bottom: 90px;
+        /* width: clamp(500px, 100%, 1000px); */
+        width: 1000px;
+        max-width: 1000px;
+    }
+
     .nav-list {
         gap: 10px;
     }
@@ -650,5 +708,8 @@ main:has(#scroll-btn:hover) #home-img {
     #home-img {
         width: 90%;
         bottom: -6%;
+    }
+    .button {
+        display: none;
     }
 }

@@ -1,38 +1,63 @@
-// Replace this with the public key from Paystack Dashboard > Settings > API Keys.
-const PAYSTACK_PUBLIC_KEY = "pk_test_b203234ed4a6cb09f84b8c78c6be92f691174884";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+import { app } from "./cart.js"
 
-export const startPayment = async (items, totalNaira) => {
-  if (!window.PaystackPop) {
-    alert("Payment service is unavailable. Please try again.");
-    return;
-  }
+const auth = getAuth(app)
 
-  if (PAYSTACK_PUBLIC_KEY.includes("REPLACE_WITH")) {
-    alert("Add your Paystack public key in paystack.js before taking payments.");
-    return;
-  }
+let currentUser = null
 
-  const email = window.prompt("Enter your email address to continue:");
-  if (!email || !email.includes("@")) return;
+const getAuthenticatedEmail = () => new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+        unsubscribe()
 
-  try {
-    const reference = `swerv-${Date.now()}-${crypto.randomUUID()}`;
+        if (user?.email) {
+            currentUser = user
+            resolve(user.email)
+        } else {
+            reject(new Error("You must be signed in to checkout."))
+        }
+    })
+})
+
+const payWithPayStack = async (event) => {
+    event.preventDefault()
+
+    let email
+    try {
+        email = await getAuthenticatedEmail()
+    } catch (error) {
+        alert(error.message)
+        return
+    }
+
+    const amount = renderCart() * 100
     const handler = PaystackPop.setup({
-      key: PAYSTACK_PUBLIC_KEY,
-      email,
-      amount: Math.round(totalNaira * 100),
-      currency: "NGN",
-      ref: reference,
-      callback: (transaction) => {
-        console.log("Paystack payment completed", transaction.reference);
-        localStorage.removeItem("cart");
-        window.location.href = "./shop.html";
-      },
-      onClose: () => alert("Payment cancelled.")
+        key: 'pk_test_b203234ed4a6cb09f84b8c78c6be92f691174884',
+        email,
+        amount,
+        currency: 'NGN',
+
+
+        callback: function (response) {
+            // This runs after a successful payment
+            alert('Payment successful! Reference: ' + response.reference);
+
+            // Send response.reference to your backend server to verify the transaction
+            verifyPaymentOnBackend(response.reference);
+        },
+        onClose: function () {
+            // This runs if the user closes the payment window manually
+            alert('Transaction was not completed.');
+            console.log(email);
+            console.log(amount);
+        }
+
     });
     handler.openIframe();
-  } catch (error) {
-    console.error("Could not create order", error);
-    alert("Could not start checkout. Please try again.");
-  }
-};
+}
+window.payWithPayStack = payWithPayStack
+
+function verifyPaymentOnBackend(reference) {
+    // Real security happens on the backend. 
+    // Make a fetch call to your server to verify this reference using Paystack's Verification API.
+    console.log("Verifying reference...", reference);
+}
