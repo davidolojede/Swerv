@@ -16,6 +16,20 @@ let allProductsCache = {};
 const checkoutBtn = document.getElementById("checkout-btn");
 checkoutBtn.disabled = true;
 
+const getCart = () => {
+    try {
+        const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (Array.isArray(storedCart)) return storedCart;
+        if (storedCart.key && storedCart.quantity) return [storedCart];
+    } catch (error) {
+        console.warn("Unable to read cart data:", error);
+    }
+
+    localStorage.setItem("cart", JSON.stringify([]));
+    return [];
+};
+
 // RENDER CART
 const renderCart = () => {
     const cartList = document.getElementById("cart-items-list");
@@ -25,8 +39,7 @@ const renderCart = () => {
     const cartSubtotal = document.getElementById("cart-subtotal");
     const cartTotal = document.getElementById("cart-total");
 
-    cartList.innerHTML = "Lorem Ipsum"
-    const cart = JSON.parse(localStorage.getItem("cart")) || []
+    const cart = getCart();
     let totalItems = 0;
     let totalPrice = 0;
     let validItemsHTML = "";
@@ -86,7 +99,7 @@ window.renderCart = renderCart
 
 // REMOVE FROM CART
 const removeFromCart = (key) => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = getCart();
     cart = cart.filter(item => item.key !== key);
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
@@ -95,7 +108,7 @@ window.removeFromCart = removeFromCart;
 
 // UPDATE QUANTITY
 const updateQuantity = (key, num) => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = getCart();
     const item = cart.find(product => product.key === key);
 
     if (item) {

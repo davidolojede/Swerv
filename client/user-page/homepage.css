@@ -659,7 +659,27 @@ main:has(#scroll-btn:hover) #home-img {
     }
 
     .nav-list {
-        gap: 15px;
+        gap: 10px;
+    }
+
+    nav {
+        padding: 10px 16px;
+    }
+
+    .left-nav h2 {
+        font-size: 22px;
+    }
+
+    .nav-list a {
+        font-size: 12px;
+    }
+
+    .right-nav {
+        gap: 10px;
+    }
+
+    .nav-icon {
+        font-size: 19px;
     }
 
     .collage-one {
@@ -698,11 +718,28 @@ main:has(#scroll-btn:hover) #home-img {
     }
 
     .nav-list {
-        gap: 10px;
+        gap: 7px;
+    }
+
+    nav {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .left-nav h2 {
+        font-size: 19px;
+    }
+
+    .nav-list a {
+        font-size: 10px;
     }
 
     .right-nav {
-        gap: 10px;
+        gap: 7px;
+    }
+
+    .nav-icon {
+        font-size: 17px;
     }
 
     #home-img {

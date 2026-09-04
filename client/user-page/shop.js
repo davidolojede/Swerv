@@ -116,9 +116,23 @@ onValue(referenceInDB, (snapshot) => {
 })
 window.onValue = onValue
 
+const getCart = () => {
+    try {
+        const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (Array.isArray(storedCart)) return storedCart;
+        if (storedCart.key && storedCart.quantity) return [storedCart];
+    } catch (error) {
+        console.warn("Unable to read cart data:", error);
+    }
+
+    localStorage.setItem("cart", JSON.stringify([]));
+    return [];
+};
+
 // ADD TO CART
 const addToCart = (key) => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || []
+    let cart = getCart()
     const existingItem = cart.find(item => item.key === key)
 
     if (existingItem) {
@@ -135,7 +149,7 @@ window.addToCart = addToCart
 
 // UPDATE CART COUNT
 const updateCartCount = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || []
+    const cart = getCart()
 
     let totalItems = 0
     cart.forEach(item => {

@@ -43,6 +43,8 @@ const payWithPayStack = async (event) => {
 
             // Send response.reference to your backend server to verify the transaction
             verifyPaymentOnBackend(response.reference);
+            localStorage.clear()    
+            renderCart()
         },
         onClose: function () {
             // This runs if the user closes the payment window manually
