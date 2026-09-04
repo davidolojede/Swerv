@@ -69,10 +69,10 @@ const loadProducts = () => {
             filterAndDisplay(cachedProducts)
 
             //PRODUCT STAT ELEMENTS
-            const productCount = allProducts.length
+            const productCount = cachedProducts.length
             totalProductNumber.innerHTML = productCount
-            const activeCount = allProducts.filter(([key, productDetails]) => productDetails.isActive === true)
-            const inactiveCount = allProducts.filter(([key, productDetails]) => productDetails.isActive === false)
+            const activeCount = cachedProducts.filter(([key, productDetails]) => productDetails.isActive === true)
+            const inactiveCount = cachedProducts.filter(([key, productDetails]) => productDetails.isActive === false)
 
             totalActiveNumber.innerHTML = activeCount.length
             totalInactiveNumber.innerHTML = inactiveCount.length
@@ -175,7 +175,7 @@ const addProductKey = () => {
 
     // Validation
     onValue(referenceInDB, (snapshot) => {
-        const allProducts = Object.entries(snapshot.val());
+        const allProducts = Object.entries(snapshot.val() || {});
 
         const idExists = allProducts.some(([key, productDetails]) => productDetails.productID === productID)
         console.log(idExists);
