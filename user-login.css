@@ -52,13 +52,13 @@ body {
 
 section {
     align-self: center;
-    width: 80%;
-    height: calc(100vh - 100px);
+    width: min(88%, 1280px);
+    height: calc(100vh - 80px);
     align-items: flex-end;
     background:
         linear-gradient(180deg, #fff 10%, var(--surface) 90%);
     border-radius: 35px;
-    padding: 40px 60px;
+    padding: 36px 54px;
     box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.288);
     position: relative;
     overflow: visible;
@@ -77,7 +77,7 @@ section {
 }
 
 .header h3 {
-    font-size: 15px;
+    font-size: 13.5px;
     z-index: 100;
     position: relative;
 }
@@ -99,8 +99,9 @@ section {
 
 main {
     display: flex;
-    padding-left: clamp(0rem, -5.938rem + 11.67vw, 6rem);
+    padding-left: clamp(0rem, -4.5rem + 8.75vw, 4.5rem);
     position: relative;
+    /* height: 80%; */
 }
 
 
@@ -108,21 +109,21 @@ main {
 #signup-container {
     align-self: center;
     display: grid;
-    gap: 40px;
-    flex: 0 1 550px;
+    gap: 36px;
+    flex: 0 1 495px;
     min-width: 0;
 }
 
 .heading {
     display: grid;
-    gap: 15px;
+    gap: 13.5px;
 }
 
 .heading h1 {
-    font-size: clamp(40px, 1.25rem + 2.5vw, 60px);
+    font-size: clamp(36px, 1.125rem + 2.25vw, 54px);
     white-space: nowrap;
     font-weight: 900;
-    line-height: 60px;
+    line-height: 54px;
 }
 
 .dot {
@@ -130,13 +131,13 @@ main {
 }
 
 .heading h3 {
-    font-size: clamp(0.813rem, 0.438rem + 0.75vw, 1.188rem);
+    font-size: clamp(0.731rem, 0.394rem + 0.675vw, 1.069rem);
     width: 90%;
 }
 
 .signup-form {
     display: grid;
-    gap: 15px;
+    gap: 13.5px;
     width: 100%;
 }
 
@@ -144,13 +145,13 @@ main {
     display: flex;
     border: 1px solid var(--icon-bg);
     background-color: rgba(255, 255, 255, 0.411);
-    gap: 10px;
-    font-size: 15px;
+    gap: 9px;
+    font-size: 13.5px;
     font-weight: 500;
-    border-radius: 12px;
+    border-radius: 11px;
     transition: 0.4s ease-out;
     align-items: center;
-    padding-left: 15px;
+    padding-left: 13.5px;
 }
 
 .signup-form div:hover {
@@ -161,14 +162,14 @@ main {
     background: transparent;
     border: none;
     outline: none;
-    padding: 15px;
+    padding: 13.5px;
     width: 100%;
     font-family: var(--manrope);
-    font-size: 15px;
+    font-size: 13.5px;
 }
 
 .form-icon {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 #terms-container {
@@ -193,13 +194,13 @@ main {
 }
 
 #signup-btn {
-    padding: 15px;
+    padding: 13.5px;
     background-color: var(--primary);
     border: none;
     border-radius: 30px;
     color: white;
     font-family: var(--manrope);
-    font-size: 16px;
+    font-size: 14.5px;
     width: 100%;
     display: flex;
     cursor: pointer;
@@ -254,9 +255,9 @@ main {
     border-radius: 1px;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 13.5px;
     width: 100%;
-    font-size: 15px;
+    font-size: 13.5px;
 }
 
 .line {
@@ -286,18 +287,18 @@ main {
 .form-image {
     position: relative;
     display: grid;
-    height: calc(88vh - 100px);
+    height: calc(88vh - 80px);
     width: 100%;
     pointer-events: none;
     user-select: none;
 }
 
 .form-image img {
-    width: clamp(25rem, -14.286rem + 78.57vw, 59.375rem);
+    width: clamp(22.5rem, -12.857rem + 70.71vw, 53.438rem);
     position: relative;
     z-index: 10;
-    right: -150px;
-    bottom: 50px;
+    right: -90px;
+    bottom: 36px;
     align-self: center;
     overflow: visible;
 }
@@ -306,7 +307,7 @@ main {
     display: flex;
     justify-content: center;
     width: 100%;
-    gap: 20px;
+    gap: 18px;
     position: absolute;
     bottom: 0px;
     right: 0px;
@@ -315,7 +316,7 @@ main {
 .features span {
     display: flex;
     font-size: clamp(0.563rem, 0.563rem + 0vw, 1rem);
-    gap: 15px;
+    gap: 13.5px;
     align-items: center;
 }
 
@@ -324,7 +325,7 @@ main {
 }
 
 .feature-icon {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .feature-line {
@@ -338,9 +339,9 @@ main {
 /* LOGIN-CONTAINER */
 #login-container {
     align-self: center;
-    gap: 40px;
+    gap: 36px;
     display: none;
-    flex: 0 1 550px;
+    flex: 0 1 495px;
     min-width: 0;
 }
 
@@ -351,7 +352,7 @@ main {
 
 .login-form {
     display: grid;
-    gap: 15px;
+    gap: 13.5px;
     width: 100%;
 }
 
@@ -363,20 +364,20 @@ main {
     background: transparent;
     border: none;
     outline: none;
-    padding: 15px;
+    padding: 13.5px;
     width: 100%;
     font-family: var(--manrope);
-    font-size: 15px;
+    font-size: 13.5px;
 }
 
 #login-btn {
-    padding: 15px;
+    padding: 13.5px;
     background-color: var(--primary);
     border: none;
     border-radius: 30px;
     color: white;
     font-family: var(--manrope);
-    font-size: 16px;
+    font-size: 14.5px;
     width: 100%;
     display: flex;
     cursor: pointer;
