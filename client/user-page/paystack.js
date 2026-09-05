@@ -1,9 +1,33 @@
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-import { app } from "./cart.js"
+import { ref, get, update } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+import { app, database } from "./cart.js"
+
 
 const auth = getAuth(app)
 
 let currentUser = null
+const cart = JSON.parse(localStorage.getItem("cart"))
+
+const updateProductQuantity = async () => {
+    cart.forEach(async ({key, quantity}) => {        
+        const reference = ref(database, `products/${key}`)
+
+        const snapshot = await get(reference);
+        const productData = snapshot.val()
+        if (!productData) {
+            console.warn("Product not found,: ", key)
+            return;
+        }
+        let productQuantity = productData.quantity
+        productQuantity -= quantity
+        
+        if (productQuantity < 0) {
+            productQuantity = 0;
+        }
+        await update(reference, {quantity: productQuantity})                        
+    })
+}
+window.updateProductQuantity = updateProductQuantity
 
 const getAuthenticatedEmail = () => new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -43,7 +67,8 @@ const payWithPayStack = async (event) => {
 
             // Send response.reference to your backend server to verify the transaction
             verifyPaymentOnBackend(response.reference);
-            localStorage.clear()    
+            localStorage.clear()
+            updateProductQuantity()
             renderCart()
         },
         onClose: function () {
@@ -63,3 +88,5 @@ function verifyPaymentOnBackend(reference) {
     // Make a fetch call to your server to verify this reference using Paystack's Verification API.
     console.log("Verifying reference...", reference);
 }
+
+// CART UPDATE AFTER PURCHASE

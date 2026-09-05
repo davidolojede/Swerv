@@ -35,7 +35,7 @@
                     Products
                 </li>
 
-                <li id="goto-orders">
+                <li onclick="goToOrders()" id="goto-orders">
                     <i class="bi bi-box nav-icon"></i>
                     Orders
                 </li>
@@ -372,6 +372,7 @@
         </div>
 
 
+        <!-- MODAL SECTION -->
         <section class="no-display" id="modal-section">
             <div class="modal-header">
                 <h2>Add Product</h2>
@@ -427,6 +428,77 @@
             </div>
         </section>
     </div>
+
+
+
+
+    <!-- ORDERS SECTION -->
+    <div id="orders-section" class="no-display">
+        <header>
+            <div class="left-side">
+                <h2>Orders</h2>
+                <p>Manage and organize all products in your store.</p>
+            </div>
+
+            <div class="right-side">
+                <i class="bi bi-search head-icon"></i>
+                <i class="bi bi-bell head-icon"></i>
+
+                <div class="profile">
+                    <img id="profile-img" src="/assets/admin-profile.png" alt="">
+                    <div class="name">
+                        <h4>Admin</h4>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
+        <!-- ORDERS LIST -->
+        <div class="products">
+            <div class="card-header">
+                <div class="query-container">
+                    <div id="search-container">
+                        <i class="bi bi-search"></i>
+                        <input type="text" id="search-query" placeholder="Search products...">
+                    </div>
+
+                    <div id="status-container">
+                        <!-- <i class="bi bi-chevron-down"></i> -->
+                        <form action="">
+                            <select name="" id="stock-filter">
+                                <option selected value="All Status">All Status</option>
+                                <option value="High Stock">High Stock</option>
+                                <option value="Low Stock">Low Stock</option>
+                                <option value="Out of Stock">Out of Stocks</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+
+                <button id="add-product-btn">
+                    <i class="bi bi-plus-lg"></i>
+                    Add Product
+                </button>
+            </div>
+
+            <div class="column-title">
+                <p class="product-title">PRODUCT</p>
+                <p>ID</p>
+                <p>CATEGORY</p>
+                <p>PRICE</p>
+                <p>STOCK</p>
+                <p>ACTIONS</p>
+            </div>
+
+            <div id="product-line"></div>
+
+            <ul class="product-list">
+
+            </ul>
+        </div>
     </div>
 </body>
 <script type="module" src="/admin/admin-dashboard/dashboard.js"></script>

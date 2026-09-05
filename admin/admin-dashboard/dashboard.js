@@ -25,28 +25,23 @@ const filterAndDisplay = (allProducts) => {
     if (filterStatus === "All Status") {
         allProducts.forEach(([key, productDetails]) => {
             displayProducts(key, productDetails)
-            console.log("All Status");
-
         })
     } else if (filterStatus === "High Stock") {
         allProducts.forEach(([key, productDetails]) => {
             if (productDetails.quantity > 200) {
                 displayProducts(key, productDetails)
-                console.log("High Stock");
             }
         })
     } else if (filterStatus === "Low Stock") {
         allProducts.forEach(([key, productDetails]) => {
             if (productDetails.quantity < 200) {
                 displayProducts(key, productDetails)
-                console.log("Low Stock");
             }
         })
     } else if (filterStatus === "Out of Stock") {
         allProducts.forEach(([key, productDetails]) => {
             if (productDetails.quantity <= 0) {
                 displayProducts(key, productDetails)
-                console.log("Out of Stock");
             }
         })
     }
@@ -67,6 +62,8 @@ const loadProducts = () => {
         if (snapshot.exists()) {
             cachedProducts = Object.entries(snapshot.val())
             filterAndDisplay(cachedProducts)
+            updateProductQuantity(cachedProducts)
+
 
             //PRODUCT STAT ELEMENTS
             const productCount = cachedProducts.length
@@ -88,6 +85,7 @@ window.loadProducts = loadProducts
 loadProducts()
 
 
+// NAVIGATION BUTTONS
 const dashboardBtn = document.getElementById("goto-dashboard")
 const productsBtn = document.getElementById("goto-products")
 const ordersBtn = document.getElementById("goto-orders")
@@ -96,6 +94,7 @@ const logoutBtn = document.getElementById("logout-btn")
 
 const dashboardSection = document.getElementById("dashboard")
 const productSection = document.getElementById("product-section")
+const orderSection = document.getElementById("orders-section")
 
 const addCustomerBtn = document.getElementById("add-customer-btn")
 
@@ -105,6 +104,9 @@ const goToDashboard = () => {
 
     productSection.classList.add("no-display")
     productSection.classList.remove("flex-display")
+
+    orderSection.classList.add("no-display")
+    orderSection.classList.remove("grid-display")
 
     localStorage.setItem("currentView", "dashboard")
 }
@@ -117,15 +119,34 @@ const goToProduct = () => {
     dashboardSection.classList.add("no-display")
     dashboardSection.classList.remove("grid-display")
 
+    orderSection.classList.add("no-display")
+    orderSection.classList.remove("grid-display")
+
     localStorage.setItem("currentView", "product")
 }
 window.goToProduct = goToProduct
 
+const goToOrders = () => {
+    orderSection.classList.add("flex-display")
+    orderSection.classList.remove("no-display")
+
+    productSection.classList.add("no-display")
+    productSection.classList.remove("flex-display")
+
+    dashboardSection.classList.add("no-display")
+    dashboardSection.classList.remove("grid-display")
+
+    localStorage.setItem("currentView", "orders")
+}
+window.goToOrders = goToOrders
+
 const view = localStorage.getItem("currentView")
 if (view === "dashboard") {
     goToDashboard()
-} else {
+} else if (view === "product") {
     goToProduct()
+} else if (view === "orders") {
+    goToOrders()
 }
 
 const logOut = () => {
@@ -179,9 +200,6 @@ const addProductKey = () => {
         const allProducts = Object.entries(snapshot.val() || {});
 
         const idExists = allProducts.some(([key, productDetails]) => productDetails.productID === productID)
-        console.log(idExists);
-
-        console.log(allProducts);
 
         if (productName.trim() === "" || !productID || productID <= 100 || category.trim() === "" || !productSize || productSize < 1 || !price || price < 1 || !quantity || quantity < 1 || !productImage) {
             addProduct.style.backgroundColor = "red"
@@ -297,3 +315,18 @@ searchQuery.addEventListener("input", (event) => {
 
     filterAndDisplay(filtered)
 })
+
+
+// PRODUCT QUANTITY UPDATE
+const updateProductQuantity = async (cachedProducts) => {
+    cachedProducts.forEach(async([key, productDetails]) => {
+        const productQuantity = productDetails.quantity
+
+        if (productQuantity <= 0) {
+            const reference = ref(database, `products/${key}`)
+            await remove(reference)
+        }
+    })
+}
+window.updateProductQuantity = updateProductQuantity
+

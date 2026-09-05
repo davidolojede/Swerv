@@ -9,7 +9,7 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+export const database = getDatabase(app);
 const referenceInDB = ref(database, "products");
 
 let allProductsCache = {};
