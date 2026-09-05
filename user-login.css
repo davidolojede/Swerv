@@ -26,11 +26,46 @@ body {
 }
 
 .page-bg {
-    background:linear-gradient(180deg, #b4c290 20%, #cdd5b7 60%);
+    background: linear-gradient(180deg, #b4c290 20%, #cdd5b7 60%);
     display: flex;
     justify-content: center;
     height: 100vh;
     padding: clamp(0.625rem, -2.232rem + 5.71vw, 3.125rem);
+    position: relative;
+    overflow: hidden;
+}
+
+
+.page-bg::before,
+.page-bg::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.page-bg::before {
+    width: 25vw;
+    height: 25vw;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    top: -10%;
+    left: -12%;
+    transform: rotate(-15deg);
+}
+
+.page-bg::after {
+    width: 35vw;
+    height: 25vw;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%;
+    bottom: -18%;
+    right: -15%;
+    transform: rotate(20deg);
+}
+
+section {
+    z-index: 1;
 }
 
 #error-box {
@@ -141,7 +176,10 @@ main {
     width: 100%;
 }
 
-.name-container, .email-container, .pass-container, .confirm-pass-container {
+.name-container,
+.email-container,
+.pass-container,
+.confirm-pass-container {
     display: flex;
     border: 1px solid var(--icon-bg);
     background-color: rgba(255, 255, 255, 0.411);
@@ -218,36 +256,36 @@ main {
 
 /* LOADER */
 .loader {
-  border: 4px solid rgba(0, 0, 0, .1);
-  border-left-color: transparent;
-  border-radius: 50%;
-  background-color: none;
+    border: 4px solid rgba(0, 0, 0, .1);
+    border-left-color: transparent;
+    border-radius: 50%;
+    background-color: none;
 
 }
 
 .loader {
-  border: 4px solid rgba(0, 0, 0, .1);
-  border-left-color: transparent;
-  width: 36px;
-  height: 36px;
+    border: 4px solid rgba(0, 0, 0, .1);
+    border-left-color: transparent;
+    width: 36px;
+    height: 36px;
 }
 
 .loader {
-  border: 4px solid var(--light-surface);
-  border-left-color: transparent;
-  width: 22px;
-  height: 22px;
-  animation: spin89345 1s linear infinite;
+    border: 4px solid var(--light-surface);
+    border-left-color: transparent;
+    width: 22px;
+    height: 22px;
+    animation: spin89345 1s linear infinite;
 }
 
 @keyframes spin89345 {
-  0% {
-    transform: rotate(0deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
 
-  100% {
-    transform: rotate(360deg);
-  }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .option {
@@ -297,8 +335,8 @@ main {
     width: clamp(22.5rem, -12.857rem + 70.71vw, 53.438rem);
     position: relative;
     z-index: 10;
-    right: -90px;
-    bottom: 36px;
+    right: -105px;
+    bottom: 65px;
     align-self: center;
     overflow: visible;
 }
@@ -402,8 +440,8 @@ main {
         padding: 5px;
     }
 
-    #error-box{
-        top: 150px;
+    #error-box {
+        top: 130px;
     }
 
     section {
@@ -460,4 +498,3 @@ main {
         font-size: 12px;
     }
 }
-

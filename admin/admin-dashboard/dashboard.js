@@ -156,7 +156,7 @@ popupModal.addEventListener("click", () => {
 
 const cancelModal = () => {
     modal.classList.add("no-display")
-    
+
     allModalInputs.forEach((modalInput) => {
         modalInput.value = ""
     })
@@ -278,3 +278,22 @@ const toggleActive = (key) => {
     )
 }
 window.toggleActive = toggleActive
+
+
+// SEARCH QUERY
+const searchQuery = document.getElementById("search-query")
+searchQuery.addEventListener("input", (event) => {
+    const term = event.target.value.trim().toLowerCase();
+
+    let filtered
+
+    if (term === "") {
+        filtered = cachedProducts
+    } else {
+        filtered = cachedProducts.filter(([key, productDetails]) =>
+            String(productDetails.productName ?? "").toLowerCase().includes(term)
+        )
+    }
+
+    filterAndDisplay(filtered)
+})
