@@ -39,7 +39,7 @@ onValue(referenceInDB, (snapshot) => {
                         <div class="bottom-detail">
                             <span class="detail-container">
                                 <p class="product-name">${product.productName}</p>
-                                <small id="price"> $${product.price}</small>
+                                <small id="price"> ₦${Number(product.price).toLocaleString()}</small>
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     
@@ -50,7 +50,7 @@ onValue(referenceInDB, (snapshot) => {
 
 
             // EVERYDAY SECTION
-            if (product.category == "everyday" && product.isActive !== false) {
+            if (product.category == "Everyday" && product.isActive !== false) {
                 optionEveryday.innerHTML += `
                 <div class="product"> 
                         <div class="img-container">
@@ -60,7 +60,7 @@ onValue(referenceInDB, (snapshot) => {
                         <div class="bottom-detail">
                             <span class="detail-container">
                                 <p class="product-name">${product.productName}</p>
-                                <small id="price"> $${product.price}</small>
+                                <small id="price"> ₦${Number(product.price).toLocaleString()}</small>
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     
@@ -71,7 +71,7 @@ onValue(referenceInDB, (snapshot) => {
 
 
             // TRAINING SECTION
-            if (product.category == "training" && product.isActive !== false) {
+            if (product.category == "Training" && product.isActive !== false) {
                 optionTraining.innerHTML += `
                 <div class="product">
                        <div class="img-container">
@@ -81,7 +81,7 @@ onValue(referenceInDB, (snapshot) => {
                         <div class="bottom-detail">
                             <span class="detail-container">
                                 <p class="product-name">${product.productName}</p>
-                                <small id="price"> $${product.price}</small>
+                                <small id="price"> ₦${Number(product.price).toLocaleString()}</small>
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     
@@ -93,7 +93,7 @@ onValue(referenceInDB, (snapshot) => {
 
 
             // CORPORATE SECTION
-            if (product.category == "corporate" && product.isActive !== false) {
+            if (product.category == "Corporate" && product.isActive !== false) {
                 optionCorporate.innerHTML += `
                 <div class="product">
                         <div class="img-container">
@@ -103,7 +103,7 @@ onValue(referenceInDB, (snapshot) => {
                         <div class="bottom-detail">
                             <span class="detail-container">
                                 <p class="product-name">${product.productName}</p>
-                                <small id="price"> $${product.price}</small>
+                                <small id="price"> ₦${Number(product.price).toLocaleString()}</small>
                                 <small id="size">Size - ${product.productSize}</small>
                             </span>
     

@@ -162,6 +162,7 @@ const cancelModal = () => {
     })
     blank.style.display = "none"
 }
+window.cancelModal = cancelModal
 
 const addProductKey = () => {
     const productName = document.getElementById("name-input").value
